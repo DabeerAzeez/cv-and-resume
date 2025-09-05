@@ -1,0 +1,321 @@
+%-----------------------------------------------------------------------------------------------------------------------------------------------%
+%	Based on original work by Jitin Nair (2021) - MIT License
+%	Significantly modified and customized by Dabeer Ahmad Abdul Azeez (2024)
+%
+%	Original MIT License applies to the base template:
+%	Permission is hereby granted, free of charge, to any person obtaining a copy
+%	of this software and associated documentation files (the "Software"), to deal
+%	in the Software without restriction, including without limitation the rights
+%	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%	copies of the Software, and to permit persons to whom the Software is
+%	furnished to do so, subject to the following conditions:
+%	
+%	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+%
+%	Modifications include:
+%	- Jinja2 template integration for dynamic content generation
+%	- Customized Skills section with categorized structure
+%	- Modified Projects section formatting
+%	- Integration with Notion API for automated CV updates
+%	- Enhanced LaTeX structure for better content organization
+%
+%-----------------------------------------------------------------------------------------------------------------------------------------------%
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT DEFINITION
+%----------------------------------------------------------------------------------------
+
+% article class because we want to fully customize the page and not use a cv template
+\documentclass[a4paper,10pt]{article}
+
+%----------------------------------------------------------------------------------------
+%	FONT
+%----------------------------------------------------------------------------------------
+
+% % fontspec allows you to use TTF/OTF fonts directly
+% \usepackage{fontspec}
+% \defaultfontfeatures{Ligatures=TeX}
+
+% % modified for ShareLaTeX use
+% \setmainfont[
+% SmallCapsFont = Fontin-SmallCaps.otf,
+% BoldFont = Fontin-Bold.otf,
+% ItalicFont = Fontin-Italic.otf
+% ]
+% {Fontin.otf}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES
+%----------------------------------------------------------------------------------------
+\usepackage{url}
+\usepackage{parskip} 	
+
+%other packages for formatting
+\RequirePackage{color}
+\RequirePackage{graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[scale=0.9]{geometry}
+
+%tabularx environment
+\usepackage{tabularx}
+
+%for lists within experience section
+\usepackage{enumitem}
+
+% centered version of 'X' col. type
+\newcolumntype{C}{>{\centering\arraybackslash}X} 
+
+%to prevent spillover of tabular into next pages
+\usepackage{supertabular}
+\usepackage{tabularx}
+\newlength{\fullcollw}
+\setlength{\fullcollw}{0.47\textwidth}
+
+%custom \section
+\usepackage{titlesec}				
+\usepackage{multicol}
+\usepackage{multirow}
+
+%CV Sections inspired by: 
+%http://stefano.italians.nl/archives/26
+\titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{10pt}{10pt}
+
+%for publications (removed biblatex)
+
+%Setup hyperref package, and colours for links
+\usepackage[unicode, draft=false]{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
+% Removed bibliography functionality
+
+%for social icons
+\usepackage{fontawesome5}
+
+%debug page outer frames
+%\usepackage{showframe}
+
+
+% job listing environments
+
+
+
+%----------------------------------------------------------------------------------------
+%	BEGIN DOCUMENT
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+% non-numbered pages
+\pagestyle{empty} 
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+% Personal header with name and contact information
+% This section displays the candidate's name prominently and includes
+% clickable links to professional profiles (GitHub, LinkedIn, email, phone)
+\begin{tabularx}{\linewidth}{@{} C @{}}
+\Huge{Dabeer Ahmad Abdul Azeez} \\[7.5pt]
+\href{https://github.com/dabeerazeez}{\raisebox{-0.05\height}\faGithub\ dabeerazeez} \ $|$ \ 
+\href{https://linkedin.com/in/dabeerabdulazeez}{\raisebox{-0.05\height}\faLinkedin\ dabeerabdulazeez} \ $|$ \ 
+\href{mailto:dabeerazeez@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ dabeerazeez@gmail.com} \ $|$ \ 
+\href{tel:+16477192948}{\raisebox{-0.05\height}\faMobile \ +1 647 719 2948} \\
+\end{tabularx}
+
+%----------------------------------------------------------------------------------------
+% SUMMARY
+%----------------------------------------------------------------------------------------
+
+% Professional summary highlighting key qualifications and value proposition
+% This is a static section that provides a high-level overview of the candidate's
+% background, skills, and career focus without being tied to specific experiences
+\section{Summary}
+Engineering Physics graduate with experience in project management, teaching, and cross-functional collaboration. Skilled in communicating complex ideas clearly, leading teams, and delivering user-focused solutions. Hands-on background includes building MATLAB GUIs, Python programs, and running technical workshops. Brings combined industry, research, and teaching expertise to consistently deliver reliable outcomes, with a strong interest in AI tools and hundreds of hours applying chatbots for studying, coding, and workflow optimization.
+
+%----------------------------------------------------------------------------------------
+% SKILLS
+%----------------------------------------------------------------------------------------
+
+% Technical and professional skills organized by category
+% This section is static and manually curated to highlight the most relevant
+% skills for the candidate's target roles. Categories include:
+% - Programming: Core programming languages
+% - AI Tools: AI/ML tools and platforms
+% - Microsoft Office: Office productivity suite
+% - Other Tools: Additional technical tools and frameworks
+% - Professional: Soft skills and competencies
+% - Languages: Language proficiencies
+\section{Skills}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+Technical &  \normalsize{Programming (Python, C++, C, MATLAB, HTML/CSS/JS, JavaScript), AI Tools (ChatGPT, Gemini, Claude, Perplexity, Cursor), Microsoft Office (Word, Excel, PowerPoint, OneNote, Project, Power Automate, Bookings, Access, SharePoint, Outlook), Angular, Firebase, Autodesk Inventor, Git/GitHub, PowerShell, scientific PDE modeling software, Image processing, OOP, GUI development}\\
+Professional  &  \normalsize{Communication, Collaboration, Initiative, Quick learning, Teaching, Public speaking}\\  
+Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spanish (intermediate), Tamil (conversational)}\\
+\end{tabularx}
+
+%----------------------------------------------------------------------------------------
+% EXPERIENCE / EXTRACURRICULARS / PROJECTS
+%----------------------------------------------------------------------------------------
+
+% Dynamic sections populated from Notion database via Jinja2 templating
+% These sections are generated automatically from the Notion database entries
+% where "Show on CV?" is set to True. The sections include:
+% - Work Experience: Professional work experience
+% - Leadership and Other Experience: Volunteer work, clubs, activities, leadership roles
+% - Projects: Personal and academic projects
+% 
+% Jinja2 template logic:
+% - Loops through each section type
+% - Filters entries where is_visible is True
+% - Renders each entry with organization, location, dates, and description
+% - Uses different formatting for Projects (no organization/role) vs others
+{% for sect in ['Work Experience','Leadership and Other Experience','Projects'] %}
+{% set items = cv_data.get(sect, [])|selectattr('is_visible')|list %}
+{% if items|length %}
+\section{ {{- sect | latex_escape -}} }
+{% for item in items %}
+{% if sect == 'Projects' %}
+% Projects section: Shows only project name and location (no organization/role)
+% This format is cleaner for projects where the organization field might contain
+% irrelevant role information like "Developer" or "Creator"
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{ {{- item.name | latex_escape -}} }
+  {% if item.location %} -- {{ item.location | latex_escape }}{% endif %}
+\end{minipage}
+& {% if item.start_date %}
+    {{ (item.start_date ~ ' -- ' ~ (item.end_date or 'Present')) | latex_escape }}
+  {% else %}
+    {{ (item.end_date or '') | latex_escape }}
+  {% endif %}
+\\[3.75pt]
+\end{tabularx}
+{% else %}
+% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
+% This format works well for traditional work experience and activities
+% where the organization and role are both relevant
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{ {{- item.organization | latex_escape -}} }
+  {% if item.location %} -- {{ item.location | latex_escape }}{% endif %} \\
+  \textbf{ {{- item.name | latex_escape -}} }
+\end{minipage}
+& {% if item.start_date %}
+    {{ (item.start_date ~ ' -- ' ~ (item.end_date or 'Present')) | latex_escape }}
+  {% else %}
+    {{ (item.end_date or '') | latex_escape }}
+  {% endif %}
+\\[3.75pt]
+\end{tabularx}
+{% endif %}
+% Bullet points describing the role/project details
+% Content comes from the "For Resume" section of each Notion page
+% and is pre-processed to convert Notion formatting to LaTeX
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  {{ item.body_latex | safe }}
+\end{itemize}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+%----------------------------------------------------------------------------------------
+% EDUCATION
+%----------------------------------------------------------------------------------------
+
+% Educational background including degrees, institutions, and dates
+% This section is populated from Notion database entries with Type="Education"
+% and includes degree name, institution, location, and graduation dates
+{% set edu = cv_data.get('Education', [])|selectattr('is_visible')|list %}
+{% if edu|length %}
+\section{Education}
+{% for item in edu %}
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{ {{- item.organization | latex_escape -}} }
+  {% if item.location %} -- {{ item.location | latex_escape }}{% endif %} \\
+  \textbf{ {{- item.name | latex_escape -}} }
+\end{minipage}
+& {% if item.start_date %}
+    {{ (item.start_date ~ ' -- ' ~ (item.end_date or 'Present')) | latex_escape }}
+  {% else %}
+    {{ (item.end_date or '') | latex_escape }}
+  {% endif %}
+\\[3.75pt]
+\end{tabularx}
+% Additional details like GPA, relevant coursework, or achievements
+% Content comes from the "For Resume" section of the education entry
+
+{{ item.body_latex | safe }}
+{% endfor %}
+{% endif %}
+
+%----------------------------------------------------------------------------------------
+% AWARDS
+%----------------------------------------------------------------------------------------
+
+% Recognition, honors, and awards received
+% This section highlights academic achievements, professional recognition,
+% competitions won, or other notable accomplishments
+{% set awards = cv_data.get('Awards', [])|selectattr('is_visible')|list %}
+{% if awards|length %}
+\section{Awards}
+{% for item in awards %}
+\begin{tabularx}{\linewidth}{@{}l X r@{}}
+\textbf{ {{- item.name | latex_escape -}} } & \hfill & {% if item.start_date %}
+    {{ (item.start_date ~ ' -- ' ~ (item.end_date or 'Present')) | latex_escape }}
+  {% else %}
+    {{ (item.end_date or '') | latex_escape }}
+  {% endif %} \\[3.75pt]
+\end{tabularx}
+% Additional details about the award, organization, or criteria
+{{ item.body_latex | safe }}
+{% if not loop.last %}
+\vspace{6pt}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+%----------------------------------------------------------------------------------------
+% PUBLICATIONS
+%----------------------------------------------------------------------------------------
+
+% Research papers, articles, or other publications
+% This section is for academic or professional publications
+% and includes paper titles, authors, journals, and publication details
+{% set pubs = cv_data.get('Publications', [])|selectattr('is_visible')|list %}
+{% if pubs|length %}
+\section{Publications}
+{% for item in pubs %}
+% Publication details including title, authors, journal, year, etc.
+% Content is formatted as plain text since publications often have
+% complex formatting requirements
+{{ item.body_latex | safe }}
+{% if not loop.last %}
+\vspace{8pt}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+%=======================================================================================
+% TEMPLATE NOTES:
+% - This template uses Jinja2 templating to dynamically populate content from Notion
+% - Only entries with "Show on CV?" = True are included
+% - Content comes from the "For Resume" section of each Notion page
+% - LaTeX special characters are automatically escaped using the latex_escape filter
+% - The template supports different formatting for different section types
+% - Projects section omits organization/role to avoid irrelevant information
+% - All dates are formatted consistently (Month YYYY -- Month YYYY or Present)
+%=======================================================================================
+
+%----------------------------------------------------------------------------------------
+% END OF DOCUMENT
+%----------------------------------------------------------------------------------------
+
+\vfill
+\center{\footnotesize Last updated: \today}
+
+\end{document}
