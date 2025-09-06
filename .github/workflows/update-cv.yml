@@ -57,7 +57,7 @@ jobs:
         latexmk -pdf cv.tex
         
     - name: Upload PDF artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cv-pdf
         path: cv.pdf
