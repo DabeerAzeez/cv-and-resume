@@ -98,10 +98,37 @@ cv-and-resume/
 
 ## GitHub Actions
 
-The repository includes automated deployment via GitHub Actions:
-- Builds PDF on every push
-- Deploys to GitHub Pages
-- Available at `https://username.github.io/repo-name/`
+The repository includes automated CV updates via GitHub Actions:
+
+### Automated Workflow
+- **Daily Updates**: Runs every day at midnight UTC to fetch latest data from Notion
+- **Manual Triggers**: Can be triggered manually from the GitHub Actions tab
+- **Cache Control**: Option to force refresh Notion cache when running manually
+- **Auto-commit**: Automatically commits updated CV files back to the repository
+
+### Setup GitHub Actions
+
+1. **Add Secrets to Repository**:
+   - Go to your repository → Settings → Secrets and variables → Actions
+   - Add these repository secrets:
+     - `NOTION_TOKEN`: Your Notion integration token
+     - `DATABASE_ID`: Your Notion database ID
+
+2. **Enable Workflow**:
+   - The workflow is automatically enabled when you push the `.github/workflows/update-cv.yml` file
+   - Go to Actions tab to see workflow runs
+
+3. **Manual Trigger**:
+   - Go to Actions → Update CV → Run workflow
+   - Choose whether to refresh the Notion cache
+   - Click "Run workflow"
+
+### Workflow Features
+- Fetches latest data from Notion
+- Compiles LaTeX to PDF
+- Uploads PDF as artifact (retained for 30 days)
+- Commits changes back to repository
+- Skips CI on auto-commits to prevent loops
 
 ## Customization
 
