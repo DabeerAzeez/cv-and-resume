@@ -65,17 +65,22 @@ jobs:
             git push
           fi
           
-      - name: cv
+      - name: Compile Full CV
         uses: dante-ev/latex-action@latest
         with:
-          root_file: ${{ env.FILE }}
+          root_file: cv
           working_directory: ${{ env.DIR }}
-      - name: move
-        run: mkdir -p github_artifacts && mv ${{ env.DIR }}/${{ env.FILE }}.pdf ./github_artifacts/
-      - name: Upload pdf as artifact
+      - name: Compile One-Page CV
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: cv_one_page
+          working_directory: ${{ env.DIR }}
+      - name: move PDFs
+        run: mkdir -p github_artifacts && mv ${{ env.DIR }}/cv.pdf ${{ env.DIR }}/cv_one_page.pdf ./github_artifacts/
+      - name: Upload PDFs as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.FILE }}.pdf
+          name: cv-pdfs
           path: ./github_artifacts
   deploy:
     needs: [build]
@@ -86,8 +91,8 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: github_artifacts
-      - name: move
-        run: mkdir -p github_deploy && mv github_artifacts/*/* github_deploy
+      - name: move PDFs
+        run: mkdir -p github_deploy && mv github_artifacts/cv-pdfs/* github_deploy/
       - name: deploy on orphan branch
         uses: peaceiris/actions-gh-pages@v4
         with:
