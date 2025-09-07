@@ -1,22 +1,113 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
     <head>
-        <meta charset="UTF-8">      
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <!--You can add your name and affiliation below to personalise -->
+        <!-- SEO Meta Tags -->
         <meta property="og:title" content="Dabeer Ahmad Abdul Azeez - CV"/>
-        
-        <!--You can add your keywords to personalise-->
         <meta property="og:description" content="Engineering Physics graduate with experience in project management, teaching, and cross-functional collaboration. Skilled in Python, MATLAB, AI tools, and delivering user-focused solutions."/>
-        
         <meta property="og:image" content="https://dummyimage.com/100x100/000/fff&text=CV" />
         <link rel="icon" type="image/png" href="https://dummyimage.com/32x32/000/fff&text=CV" />
         <link rel="shortcut icon" type="image/png" href="https://dummyimage.com/32x32/000/fff&text=CV" />
         <title>Dabeer Ahmad Abdul Azeez - CV</title>
+        
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#1e40af',
+                            secondary: '#64748b'
+                        }
+                    }
+                }
+            }
+        </script>
     </head>
-    <body>
-    <script type="text/javascript">
-        window.location.href = "./cv.pdf"
-    </script>
+    <body class="bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-4 py-16 max-w-4xl">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Dabeer Ahmad Abdul Azeez
+                </h1>
+                <p class="text-xl text-gray-600 mb-2">
+                    Engineering Physics Graduate
+                </p>
+                <p class="text-lg text-gray-500">
+                    Project Management • Teaching • Cross-functional Collaboration
+                </p>
+            </div>
+
+            <!-- CV Selection -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">
+                    Choose Your Preferred CV Format
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Full CV Card -->
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 border border-gray-200">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Full CV</h3>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                Complete professional history with detailed work experience, education, projects, and achievements. Perfect for comprehensive applications and detailed review.
+                            </p>
+                            <a href="./cv.pdf" 
+                               class="inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Download Full CV
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- One-Page Resume Card -->
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 border border-gray-200">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">One-Resume CV</h3>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                Concise executive summary highlighting key qualifications and achievements. Ideal for quick review, networking, and applications with space constraints.
+                            </p>
+                            <a href="./cv_one_page.pdf" 
+                               class="inline-flex items-center px-8 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200 shadow-md hover:shadow-lg">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Download One-Page CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center text-gray-500 text-sm">
+                <p>Last updated: <span id="lastUpdated"></span></p>
+            </div>
+        </div>
+
+        <!-- Add last updated timestamp -->
+        <script>
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        </script>
     </body>
 </html>
