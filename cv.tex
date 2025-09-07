@@ -80,7 +80,7 @@
 
 %CV Sections inspired by: 
 %http://stefano.italians.nl/archives/26
-\titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[\titlerule]
+\titleformat{\section}{\fontsize{10}{12}\selectfont\bfseries\raggedright}{}{0em}{}[\titlerule]
 \titlespacing{\section}{0pt}{10pt}{10pt}
 
 %for publications (removed biblatex)
@@ -132,7 +132,7 @@
 % Professional summary highlighting key qualifications and value proposition
 % This is a static section that provides a high-level overview of the candidate's
 % background, skills, and career focus without being tied to specific experiences
-\section{Summary}
+\section{SUMMARY}
 Engineering Physics graduate with experience in project management, teaching, and cross-functional collaboration. Skilled in communicating complex ideas clearly, leading teams, and delivering user-focused solutions. Hands-on background includes building MATLAB GUIs, Python programs, and running technical workshops. Brings combined industry, research, and teaching expertise to consistently deliver reliable outcomes, with a strong interest in AI tools and hundreds of hours applying chatbots for studying, coding, and workflow optimization.
 
 %----------------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ Engineering Physics graduate with experience in project management, teaching, an
 % - Other Tools: Additional technical tools and frameworks
 % - Professional: Soft skills and competencies
 % - Languages: Language proficiencies
-\section{Skills}
+\section{SKILLS}
 \begin{tabularx}{\linewidth}{@{}l X@{}}
 Technical &  \normalsize{Programming (Python, C++, C, MATLAB, HTML/CSS/JS, JavaScript), AI Tools (ChatGPT, Gemini, Claude, Perplexity, Cursor), Microsoft Office (Word, Excel, PowerPoint, OneNote, Project, Power Automate, Bookings, Access, SharePoint, Outlook), Angular, Firebase, Autodesk Inventor, Git/GitHub, PowerShell, scientific PDE modeling software, Image processing, OOP, GUI development}\\
 Professional  &  \normalsize{Communication, Collaboration, Initiative, Quick learning, Teaching, Public speaking}\\  
@@ -171,7 +171,26 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % - Filters entries where is_visible is True
 % - Renders each entry with organization, location, dates, and description
 % - Uses different formatting for Projects (no organization/role) vs others
-\section{Work Experience}
+\section{WORK EXPERIENCE}
+% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
+% This format works well for traditional work experience and activities
+% where the organization and role are both relevant
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{McMaster iBioMed}
+ -- Hamilton, ON, Canada \\
+  \textbf{Laboratory Teaching Assistant}
+\end{minipage}
+&     Sep 2020 — Apr 2021, Sep 2023 — Apr 2025
+\end{tabularx}
+% Bullet points describing the role/project details
+% Content comes from the "For Resume" section of each Notion page
+% and is pre-processed to convert Notion formatting to LaTeX
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  \item Promoted to Instructional Teaching Assistant, in charge of teaching \textasciitilde{}45 students on a weekly basis during labs, answering questions about Python programming and Autodesk Inventor
+\item Evaluated hundreds of student submissions for CAD and Python assignments on a bi-weekly basis
+\item Took initiative to help automate grading of hundreds of student coding assignments using Pytest
+\end{itemize}
 % Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
 % This format works well for traditional work experience and activities
 % where the organization and role are both relevant
@@ -182,7 +201,6 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
   \textbf{Electro-Optical Engineering Intern (Co-Op)  }
 \end{minipage}
 &     May 2022 -- Aug 2023
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -204,7 +222,6 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
   \textbf{Anatomy Teaching Assistant}
 \end{minipage}
 &     Sep 2021 -- Apr 2022
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -224,7 +241,6 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
   \textbf{Project Support Assistant (Co-op)}
 \end{minipage}
 &     May 2021 -- Aug 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -243,32 +259,11 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % where the organization and role are both relevant
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
-  \textbf{McMaster iBioMed}
- -- Hamilton, ON, Canada \\
-  \textbf{Laboratory Teaching Assistant}
-\end{minipage}
-&     Sep 2020 -- Apr 2021
-\\[3.75pt]
-\end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
-\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Supervised 8 students on a weekly basis during lab periods, answering questions and providing advice
-\item Evaluated hundreds of student submissions for CAD and Python assignments on a bi-weekly basis
-\item Took initiative to help automate grading of hundreds of student coding assignments using Pytest
-\end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
-\begin{tabularx}{\linewidth}{@{}X r@{}}
-\begin{minipage}[t]{\linewidth}
   \textbf{Hoare Labs}
  -- Hamilton, ON, Canada \\
   \textbf{Undergraduate Research Assistant (Co-op)}
 \end{minipage}
 &     Jun 2020 -- Aug 2020
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -277,7 +272,7 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
   \item Co-authored and created graphical figures with SteriPro lead scientist and lab researchers for a \href{https://www.sciencedirect.com/science/article/pii/S0195670120304576#!}{published paper} on N95 respirator steam reprocessing
 \item Conducted literature reviews on microfluidic devices and compiled information into professional documents as reference material for future papers
 \item Developed animations and graphical abstracts using Adobe Illustrator and After Effects
-\item Developed interactive \href{https://www.hoarelab.com/research-papers}{online database} of 100+ research papers and patents using Javascript and Wix API
+\item Developed interactive online database of 100+ research papers and patents using Javascript and Wix API
 \end{itemize}
 % Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
 % This format works well for traditional work experience and activities
@@ -289,7 +284,6 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
   \textbf{Swim Instructor and Lifeguard}
 \end{minipage}
 &     Sep 2017 -- Aug 2019
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -298,7 +292,7 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
   \item Supervised up to 50 patrons at a time, coordinating a rotation schedule with a team of 4 lifeguards
 \item Taught preschoolers, children, teens, and adults in swim classes of up to 18 at a time
 \end{itemize}
-\section{Leadership and Other Experience}
+\section{LEADERSHIP AND OTHER EXPERIENCE}
 % Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
 % This format works well for traditional work experience and activities
 % where the organization and role are both relevant
@@ -309,7 +303,6 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
   \textbf{Co-President}
 \end{minipage}
 &     May 2022 -- Apr 2025
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -331,7 +324,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Director \& Baritone Singer}
 \end{minipage}
 &     Nov 2021 -- Apr 2025
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -352,7 +344,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{FrancoFEST Volunteer}
 \end{minipage}
 &     Jun 2023 -- Jun 2023
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -371,7 +362,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Vice President Outreach}
 \end{minipage}
 &     May 2020 -- Dec 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -390,7 +380,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Student Ambassador}
 \end{minipage}
 &     Sep 2020 -- Dec 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -409,7 +398,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Workshop Leader}
 \end{minipage}
 &     Jun 2021 -- Jun 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -428,7 +416,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Section Leader}
 \end{minipage}
 &     Apr 2021 -- May 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -447,7 +434,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{IT Coordinator}
 \end{minipage}
 &     May 2020 -- Apr 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -466,7 +452,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Engineering Society Representative}
 \end{minipage}
 &     May 2020 -- Apr 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -485,7 +470,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Tutor (Physics, Calculus, English)}
 \end{minipage}
 &     May 2020 -- Jun 2020
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -505,7 +489,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Student Ambassador \& Tour Guide}
 \end{minipage}
 &     Nov 2019 -- Apr 2020
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -523,7 +506,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Assistant Swim Instructor}
 \end{minipage}
 &     Jun 2017 -- Jun 2019
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -534,7 +516,24 @@ front of crowds of 100 people by the end of the school year
 \item Maintained safe pool environment by helping with setup and takedown for lessons
 \item Communicated with parents, participants, swim instructors, and deck supervisors to ensure safety and efficiency of swim lessons
 \end{itemize}
-\section{Projects}
+\section{PROJECTS}
+% Projects section: Shows only project name and location (no organization/role)
+% This format is cleaner for projects where the organization field might contain
+% irrelevant role information like "Developer" or "Creator"
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{Cardiac Catheterization Testing Apparatus}
+\end{minipage}
+&     Sep 2024 -- Apr 2025
+\end{tabularx}
+% Bullet points describing the role/project details
+% Content comes from the "For Resume" section of each Notion page
+% and is pre-processed to convert Notion formatting to LaTeX
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  \item \textbf{Designed a cardiac catheterization testing apparatus} that simulates physiological pressure and flow conditions, providing Boston Scientific with a cost-effective, reproducible, and ethically responsible alternative to animal testing while accelerating device development.
+\item \textbf{Developed and implemented a MATLAB AppDesigner GUI} to control pump modes, monitor real-time pressure/flow data, run calibration routines, and export results
+\item \textbf{Led project management efforts} by creating and maintaining a detailed Gantt chart in Microsoft Project, coordinating timelines and deliverables to keep a five-member team aligned and on schedule.
+\end{itemize}
 % Projects section: Shows only project name and location (no organization/role)
 % This format is cleaner for projects where the organization field might contain
 % irrelevant role information like "Developer" or "Creator"
@@ -543,7 +542,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{MATLAB Numerical Methods Visualizer}
 \end{minipage}
 &     Nov 2021 -- Dec 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -559,7 +557,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{PCB Student Number Display}
 \end{minipage}
 &     Mar 2021 -- Dec 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -576,7 +573,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Ultrasonic Range Finder Circuit}
 \end{minipage}
 &     Nov 2021 -- Dec 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -593,7 +589,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Virtrolio - Yearbook Signing Web App}
 \end{minipage}
 &     Apr 2020 -- Jun 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -611,7 +606,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{FEM Rocket Heat \& Dynamics Model}
 \end{minipage}
 &     Mar 2021 -- Apr 2021
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -628,7 +622,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Research Publications Database}
 \end{minipage}
 &     Jun 2020 -- Aug 2020
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -644,7 +637,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Baby Orientation Monitor}
 \end{minipage}
 &     Jan 2020 -- Jun 2020
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -660,7 +652,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Python Autograder}
 \end{minipage}
 &     
-\\[3.75pt]
 \end{tabularx}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
@@ -676,7 +667,7 @@ front of crowds of 100 people by the end of the school year
 % Educational background including degrees, institutions, and dates
 % This section is populated from Notion database entries with Type="Education"
 % and includes degree name, institution, location, and graduation dates
-\section{Education}
+\section{EDUCATION}
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster University}
@@ -684,7 +675,6 @@ front of crowds of 100 people by the end of the school year
   \textbf{Engineering Physics (B.Eng., GPA 3.95/4.00)}
 \end{minipage}
 &     Sep 2019 -- Apr 2025
-\\[3.75pt]
 \end{tabularx}
 % Additional details like GPA, relevant coursework, or achievements
 % Content comes from the "For Resume" section of the education entry
@@ -701,11 +691,10 @@ Embedded Microcontrollers, Data Structures / Algorithms, Numerical Methods for E
 % Recognition, honors, and awards received
 % This section highlights academic achievements, professional recognition,
 % competitions won, or other notable accomplishments
-\section{Awards}
+\section{AWARDS}
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{University (Senate) Scholarship} & \hfill &     Jan 2025
- \\[3.75pt]
-\end{tabularx}
+ \end{tabularx}
 % Additional details about the award, organization, or criteria
 Awarded an \$800\textbf{ }scholarship, one of 300 provided annually to undergraduate students who achieve outstanding academic standing.
 
@@ -714,8 +703,7 @@ Awarded an \$800\textbf{ }scholarship, one of 300 provided annually to undergrad
 
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{Jones Family Academic Grant} & \hfill &     Jan 2025
- \\[3.75pt]
-\end{tabularx}
+ \end{tabularx}
 % Additional details about the award, organization, or criteria
 Awarded the sole yearly \$5,000 grant in the Faculty of Engineering, which recognizes students for strong academic achievement and demonstrated financial need.
 
@@ -724,32 +712,28 @@ Awarded the sole yearly \$5,000 grant in the Faculty of Engineering, which recog
 
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{H.L. Hooker Scholarship} & \hfill &     Jan 2025
- \\[3.75pt]
-\end{tabularx}
+ \end{tabularx}
 % Additional details about the award, organization, or criteria
 Awarded a \$1,500 scholarship, one of 80 provided annually to undergraduate students who achieve outstanding academic standing.
 \vspace{6pt}
 
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{NSERC Undergraduate Research Award} & \hfill &     May 2020
- \\[3.75pt]
-\end{tabularx}
+ \end{tabularx}
 % Additional details about the award, organization, or criteria
 Awarded a highly competitive \$6,000 NSERC Undergraduate Research Award to conduct a full-time research project with a faculty supervisor, underscoring strong academic standing and research potential.
 \vspace{6pt}
 
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{SAG General Bursary} & \hfill &     Sep 2019
- \\[3.75pt]
-\end{tabularx}
+ \end{tabularx}
 % Additional details about the award, organization, or criteria
 Awarded a general bursary to support educational costs, demonstrating a strong commitment to academic pursuits.
 \vspace{6pt}
 
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{President’s Award} & \hfill &     Sep 2019
- \\[3.75pt]
-\end{tabularx}
+ \end{tabularx}
 % Additional details about the award, organization, or criteria
 Awarded \$2,500 for a prestigious entrance scholarship that recognizes academic excellence and a final high school admission average of 95\% or greater.
 
@@ -758,8 +742,7 @@ Awarded \$2,500 for a prestigious entrance scholarship that recognizes academic 
 
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{University of Toronto National Biology Scholar 2019 } & \hfill &     Jan 2019
- \\[3.75pt]
-\end{tabularx}
+ \end{tabularx}
 % Additional details about the award, organization, or criteria
 Scored top 5\% in Canada on the University of Toronto National Biology Competition
 
@@ -770,7 +753,7 @@ Scored top 5\% in Canada on the University of Toronto National Biology Competiti
 % Research papers, articles, or other publications
 % This section is for academic or professional publications
 % and includes paper titles, authors, journals, and publication details
-\section{Publications}
+\section{PUBLICATIONS}
 % Publication details including title, authors, journal, year, etc.
 % Content is formatted as plain text since publications often have
 % complex formatting requirements

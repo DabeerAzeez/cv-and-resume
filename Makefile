@@ -24,7 +24,7 @@ clean:
 
 # Remove only the PDF file
 clean-pdf:
-	del /q ${NAME}.pdf 2>nul
+	del /q *.pdf 2>nul
 
 # Remove the Notion API cache to force fresh data fetch
 clean-cache:

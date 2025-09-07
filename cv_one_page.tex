@@ -133,7 +133,7 @@
 % This is a static section that provides a high-level overview of the candidate's
 % background, skills, and career focus without being tied to specific experiences
 \section{SUMMARY}
-Engineering Physics graduate with experience in project management, teaching, and cross-functional collaboration. Skilled in communicating complex ideas clearly, leading teams, and delivering user-focused solutions. Hands-on background includes building MATLAB GUIs, Python programs, and running technical workshops. Brings combined industry, research, and teaching expertise to consistently deliver reliable outcomes, with a strong interest in AI tools and hundreds of hours applying chatbots for studying, coding, and workflow optimization.
+Engineering Physics graduate with experience in project management, teaching, and technical development, skilled at communicating complex ideas and leveraging AI tools to deliver user-focused solutions.
 
 %----------------------------------------------------------------------------------------
 % SKILLS
@@ -150,7 +150,7 @@ Engineering Physics graduate with experience in project management, teaching, an
 % - Languages: Language proficiencies
 \section{SKILLS}
 \begin{tabularx}{\linewidth}{@{}l X@{}}
-Technical &  \normalsize{Programming (Python, C++, C, MATLAB, HTML/CSS/JS, JavaScript), AI Tools (ChatGPT, Gemini, Claude, Perplexity, Cursor), Microsoft Office (Word, Excel, PowerPoint, OneNote, Project, Power Automate, Bookings, Access, SharePoint, Outlook), Angular, Firebase, Autodesk Inventor, Git/GitHub, PowerShell, scientific PDE modeling software, Image processing, OOP, GUI development}\\
+Technical &  \normalsize{Programming (Python, C++, C, MATLAB, HTML/CSS/JS), AI (ChatGPT, Gemini, Claude, Perplexity, Cursor), MS Office (Word, Excel, PowerPoint, OneNote, Project, Power Automate, Bookings, Access, SharePoint, Outlook), Autodesk Inventor, Git/GitHub, PowerShell, Image processing, OOP, GUI development}\\
 Professional  &  \normalsize{Communication, Collaboration, Initiative, Quick learning, Teaching, Public speaking}\\  
 Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spanish (intermediate), Tamil (conversational)}\\
 \end{tabularx}
@@ -171,56 +171,99 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % - Filters entries where is_visible is True
 % - Renders each entry with organization, location, dates, and description
 % - Uses different formatting for Projects (no organization/role) vs others
-{% for sect in ['Work Experience','Leadership and Other Experience','Projects'] %}
-{% set items = cv_data.get(sect, [])|selectattr('is_visible')|list %}
-{% if items|length %}
-\section{ {{- sect | upper | latex_escape -}} }
-{% for item in items %}
-{% if sect == 'Projects' %}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
-\begin{tabularx}{\linewidth}{@{}X r@{}}
-\begin{minipage}[t]{\linewidth}
-  \textbf{ {{- item.name | latex_escape -}} }
-  {% if item.location %} -- {{ item.location | latex_escape }}{% endif %}
-\end{minipage}
-& {% if item.date_display %}
-    {{ item.date_display | latex_escape }}
-  {% elif item.start_date %}
-    {{ (item.start_date ~ ' -- ' ~ (item.end_date or 'Present')) | latex_escape }}
-  {% else %}
-    {{ (item.end_date or '') | latex_escape }}
-  {% endif %}
-\end{tabularx}
-{% else %}
+\section{WORK EXPERIENCE}
 % Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
 % This format works well for traditional work experience and activities
 % where the organization and role are both relevant
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
-  \textbf{ {{- item.organization | latex_escape -}} }
-  {% if item.location %} -- {{ item.location | latex_escape }}{% endif %} \\
-  \textbf{ {{- item.name | latex_escape -}} }
+  \textbf{McMaster iBioMed}
+ -- Hamilton, ON, Canada \\
+  \textbf{Laboratory Teaching Assistant}
 \end{minipage}
-& {% if item.date_display %}
-    {{ item.date_display | latex_escape }}
-  {% elif item.start_date %}
-    {{ (item.start_date ~ ' -- ' ~ (item.end_date or 'Present')) | latex_escape }}
-  {% else %}
-    {{ (item.end_date or '') | latex_escape }}
-  {% endif %}
+&     Sep 2020 — Apr 2021, Sep 2023 — Apr 2025
 \end{tabularx}
-{% endif %}
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
 % and is pre-processed to convert Notion formatting to LaTeX
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  {{ item.body_latex | safe }}
+  \item Promoted to Instructional Teaching Assistant, in charge of teaching ~45 students on a weekly basis during labs, answering questions about Python programming and Autodesk Inventor
+\item Evaluated hundreds of student submissions for CAD and Python assignments on a bi-weekly basis
 \end{itemize}
-{% endfor %}
-{% endif %}
-{% endfor %}
+% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
+% This format works well for traditional work experience and activities
+% where the organization and role are both relevant
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{L3Harris WESCAM}
+ -- Waterdown, ON, Canada \\
+  \textbf{Electro-Optical Engineering Intern (Co-Op)  }
+\end{minipage}
+&     May 2022 -- Aug 2023
+\end{tabularx}
+% Bullet points describing the role/project details
+% Content comes from the "For Resume" section of each Notion page
+% and is pre-processed to convert Notion formatting to LaTeX
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  \item Safely handled \$100,000+ electronic equipment and camera systems following ESD procedures
+\item Programmed various MATLAB GUIs and image processing tools to help solve needs in the department
+\item Supervised and trained a junior co-op regularly on all aspects of the role
+\end{itemize}
+% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
+% This format works well for traditional work experience and activities
+% where the organization and role are both relevant
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{McMaster Technology Services}
+ -- Hamilton, ON, Canada \\
+  \textbf{Project Support Assistant (Co-op)}
+\end{minipage}
+&     May 2021 -- Aug 2021
+\end{tabularx}
+% Bullet points describing the role/project details
+% Content comes from the "For Resume" section of each Notion page
+% and is pre-processed to convert Notion formatting to LaTeX
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  \item Collaborated in a team of 4 to create a SharePoint site (16k+ unique visitors, 85k+ views) for campus users to discover and learn Microsoft 365 (M365) tools, following principles of Design Thinking over 13 weeks to accurately fulfill user needs
+\item Actively voiced the student perspective in staff meetings to highlight relevant concerns and presented regularly to management up to CTO about project progress
+\item Organized dozens of interviews, conducted environmental scans, and analyzed over 150 survey results from campus members to determine user needs and design guidelines
+\end{itemize}
+\section{LEADERSHIP AND OTHER EXPERIENCE}
+% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
+% This format works well for traditional work experience and activities
+% where the organization and role are both relevant
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{McMaster Improv}
+ -- Hamilton, ON, Canada \\
+  \textbf{Co-President}
+\end{minipage}
+&     May 2022 -- Apr 2025
+\end{tabularx}
+% Bullet points describing the role/project details
+% Content comes from the "For Resume" section of each Notion page
+% and is pre-processed to convert Notion formatting to LaTeX
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  \item Demonstrated leadership, communication, and organization skills by leading 25+ weekly team practices, welcoming new members, and directing teams of 5-8 people through 15+ executive meetings each year, resulting in over 100\% club growth and a significant increase in ticket sales (from \$0/yr to \textasciitilde\$1400/yr)
+\item Guided expanding teams of 12-20 people (many with no prior experience) to perform a 90-minute improv show in front of crowds of 100 people by the end of the school year
+\end{itemize}
+
+\section{PROJECTS}
+% Projects section: Shows only project name and location (no organization/role)
+% This format is cleaner for projects where the organization field might contain
+% irrelevant role information like "Developer" or "Creator"
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{Cardiac Catheterization Testing Apparatus (Capstone Project)}
+\end{minipage}
+&     Sep 2024 -- Apr 2025
+\end{tabularx}
+% Bullet points describing the role/project details
+% Content comes from the "For Resume" section of each Notion page
+% and is pre-processed to convert Notion formatting to LaTeX
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  \item Designed and built a cardiac catheterization testing apparatus for Boston Scientific, providing a cost-effective and ethical alternative to animal testing. Developed a MATLAB GUI for device control and data monitoring, and managed the project timeline for a five-member team.
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 % EDUCATION
@@ -229,97 +272,19 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % Educational background including degrees, institutions, and dates
 % This section is populated from Notion database entries with Type="Education"
 % and includes degree name, institution, location, and graduation dates
-{% set edu = cv_data.get('Education', [])|selectattr('is_visible')|list %}
-{% if edu|length %}
 \section{EDUCATION}
-{% for item in edu %}
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
-  \textbf{ {{- item.organization | latex_escape -}} }
-  {% if item.location %} -- {{ item.location | latex_escape }}{% endif %} \\
-  \textbf{ {{- item.name | latex_escape -}} }
+  \textbf{McMaster University}
+ -- Hamilton, ON, Canada \\
+  \textbf{Engineering Physics (B.Eng., GPA 3.95/4.00)}
 \end{minipage}
-& {% if item.date_display %}
-    {{ item.date_display | latex_escape }}
-  {% elif item.start_date %}
-    {{ (item.start_date ~ ' -- ' ~ (item.end_date or 'Present')) | latex_escape }}
-  {% else %}
-    {{ (item.end_date or '') | latex_escape }}
-  {% endif %}
+&     Sep 2019 -- Apr 2025
 \end{tabularx}
 % Additional details like GPA, relevant coursework, or achievements
 % Content comes from the "For Resume" section of the education entry
 
-{{ item.body_latex | safe }}
-{% endfor %}
-{% endif %}
-
-%----------------------------------------------------------------------------------------
-% AWARDS
-%----------------------------------------------------------------------------------------
-
-% Recognition, honors, and awards received
-% This section highlights academic achievements, professional recognition,
-% competitions won, or other notable accomplishments
-{% set awards = cv_data.get('Awards', [])|selectattr('is_visible')|list %}
-{% if awards|length %}
-\section{AWARDS}
-{% for item in awards %}
-\begin{tabularx}{\linewidth}{@{}l X r@{}}
-\textbf{ {{- item.name | latex_escape -}} } & \hfill & {% if item.date_display %}
-    {{ item.date_display | latex_escape }}
-  {% elif item.start_date %}
-    {{ (item.start_date ~ ' -- ' ~ (item.end_date or 'Present')) | latex_escape }}
-  {% else %}
-    {{ (item.end_date or '') | latex_escape }}
-  {% endif %} \end{tabularx}
-% Additional details about the award, organization, or criteria
-{{ item.body_latex | safe }}
-{% if not loop.last %}
-\vspace{6pt}
-
-{% endif %}
-{% endfor %}
-{% endif %}
-
-%----------------------------------------------------------------------------------------
-% PUBLICATIONS
-%----------------------------------------------------------------------------------------
-
-% Research papers, articles, or other publications
-% This section is for academic or professional publications
-% and includes paper titles, authors, journals, and publication details
-{% set pubs = cv_data.get('Publications', [])|selectattr('is_visible')|list %}
-{% if pubs|length %}
-\section{PUBLICATIONS}
-{% for item in pubs %}
-% Publication details including title, authors, journal, year, etc.
-% Content is formatted as plain text since publications often have
-% complex formatting requirements
-{{ item.body_latex | safe }}
-{% if not loop.last %}
-\vspace{8pt}
-
-{% endif %}
-{% endfor %}
-{% endif %}
-
-%=======================================================================================
-% TEMPLATE NOTES:
-% - This template uses Jinja2 templating to dynamically populate content from Notion
-% - Only entries with "Show on CV?" = True are included
-% - Content comes from the "For Resume" section of each Notion page
-% - LaTeX special characters are automatically escaped using the latex_escape filter
-% - The template supports different formatting for different section types
-% - Projects section omits organization/role to avoid irrelevant information
-% - All dates are formatted consistently (Month YYYY -- Month YYYY or Present)
-%=======================================================================================
-
-%----------------------------------------------------------------------------------------
-% END OF DOCUMENT
-%----------------------------------------------------------------------------------------
-
-\vfill
-\center{\footnotesize Last updated: \today}
+Relevant Coursework: \textit{Biomedical Engineering Design Projects (I/II/III), Biomedical Signals \& Systems,
+Embedded Microcontrollers, Data Structures / Algorithms}
 
 \end{document}
