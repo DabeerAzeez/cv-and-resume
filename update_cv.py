@@ -417,29 +417,124 @@ def get_prop_text(props: Dict[str, Any], name: str) -> str:
     return ""
 
 
-def get_date_range(props: Dict[str, Any]) -> Tuple[Optional[str], Optional[str]]:
+def get_date_range(props: Dict[str, Any]) -> Tuple[Optional[str], Optional[str], Optional[str]]:
     """
     Extract start and end dates from Notion properties.
+    
+    Supports both regular date fields and date override field for complex date ranges.
     
     Args:
         props (Dict[str, Any]): Notion page properties
         
     Returns:
-        Tuple[Optional[str], Optional[str]]: (start_date, end_date) formatted strings
+        Tuple[Optional[str], Optional[str], Optional[str]]: (start_date, end_date, date_display) formatted strings
     """
+    # Check for date override first
+    date_override = props.get("Date Override")
+    if date_override and date_override.get("type") in ("text", "rich_text"):
+        if date_override.get("type") == "text":
+            override_text = date_override.get("text", {}).get("content", "")
+        else:  # rich_text
+            override_text = "".join([text.get("plain_text", "") for text in date_override.get("rich_text", [])])
+        
+        if override_text.strip():
+            # Parse date override format: "Jan 2020 -- Dec 2021, Jan 2023 -- Present"
+            # or "Jan 2020 -- Dec 2021" or "Jan 2020 -- Present"
+            start_d, end_d = parse_date_override(override_text.strip())
+            return start_d, end_d, override_text.strip()
+    
+    # Fall back to regular date fields
     sd = props.get("Start Date")
     ed = props.get("End Date")
     s = fmt_date(sd.get("date", {}).get("start")) if sd and sd.get("type") == "date" and sd.get("date") else None
     e = fmt_date(ed.get("date", {}).get("start")) if ed and ed.get("type") == "date" and ed.get("date") else None
-    return s, e
+    return s, e, None
+
+
+def parse_date_override(override_text: str) -> Tuple[Optional[str], Optional[str]]:
+    """
+    Parse date override text into start and end dates.
+    
+    Supports formats like:
+    - "Jan 2020 -- Dec 2021, Jan 2023 -- Present"
+    - "Jan 2020 -- Dec 2021" 
+    - "Jan 2020 -- Present"
+    - "Jan 2020 -- Dec 2021, Jan 2023 -- Dec 2024"
+    
+    Args:
+        override_text (str): Date override text from Notion
+        
+    Returns:
+        Tuple[Optional[str], Optional[str]]: (start_date, end_date) formatted strings
+    """
+    # Normalize different dash types to standard format
+    normalized_text = override_text.replace("—", "--").replace("–", "--")
+    
+    # Handle multiple date ranges (e.g., "Jan 2020 -- Dec 2021, Jan 2023 -- Present")
+    if "," in normalized_text:
+        # For multiple ranges, use the earliest start and latest end
+        ranges = [r.strip() for r in normalized_text.split(",")]
+        start_dates = []
+        end_dates = []
+        
+        for range_str in ranges:
+            if " -- " in range_str:
+                start_part, end_part = range_str.split(" -- ", 1)
+                start_dates.append(start_part.strip())
+                end_dates.append(end_part.strip())
+        
+        if start_dates and end_dates:
+            # Find earliest start date
+            earliest_start = min(start_dates, key=lambda x: parse_date_for_sorting(x))
+            # Find latest end date (excluding "Present")
+            end_dates_no_present = [d for d in end_dates if d.lower() != "present"]
+            if end_dates_no_present:
+                latest_end = max(end_dates_no_present, key=lambda x: parse_date_for_sorting(x))
+            else:
+                latest_end = "Present"
+            return earliest_start, latest_end
+    
+    # Handle single date range
+    if " -- " in normalized_text:
+        start_part, end_part = normalized_text.split(" -- ", 1)
+        return start_part.strip(), end_part.strip()
+    
+    # If no range separator, treat as start date only
+    return normalized_text.strip(), None
+
+
+def parse_date_for_sorting(date_str: str) -> Tuple[int, int]:
+    """
+    Parse a date string for sorting purposes.
+    
+    Args:
+        date_str (str): Date string like "Jan 2020" or "Present"
+        
+    Returns:
+        Tuple[int, int]: (year, month) for sorting
+    """
+    if not date_str or date_str.lower() == "present":
+        return (9999, 12)  # Put "Present" at the end
+    
+    try:
+        parts = date_str.split()
+        if len(parts) == 2:
+            month_name, year_str = parts
+            year = int(year_str)
+            month = MONTHS.index(month_name) + 1 if month_name in MONTHS else 0
+            return (year, month)
+    except (ValueError, IndexError):
+        pass
+    
+    return (0, 0)  # Fallback for unparseable dates
 
 
 def sort_entries_by_date(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
     Sort entries by date (newest first).
     
-    Uses end_date if available, otherwise start_date. Entries without dates
-    are placed at the end.
+    Uses end_date if available, otherwise start_date. For date overrides,
+    extracts the latest end date from the override string.
     
     Args:
         entries (List[Dict[str, Any]]): List of CV entries to sort
@@ -448,40 +543,77 @@ def sort_entries_by_date(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         List[Dict[str, Any]]: Sorted entries with newest first
     """
     def get_sort_date(entry: Dict[str, Any]) -> Tuple[int, int]:
+        # For date overrides, extract the latest end date from the override string
+        if entry.get("date_display"):
+            return get_latest_end_date_from_override(entry["date_display"])
+        
         # Use end_date if available, otherwise start_date
         date_str = entry.get("end_date") or entry.get("start_date")
         if not date_str:
             return (0, 0)  # Put entries without dates at the end
         
-        try:
-            # Parse "Jan 2024" format
-            parts = date_str.split()
-            if len(parts) == 2:
-                month_name, year_str = parts
-                year = int(year_str)
-                month = MONTHS.index(month_name) + 1 if month_name in MONTHS else 0
-                return (year, month)
-        except (ValueError, IndexError):
-            pass
-        
-        return (0, 0)  # Fallback for unparseable dates
+        return parse_date_for_sorting(date_str)
     
     return sorted(entries, key=get_sort_date, reverse=True)
 
 
-def build_cv_data(notion: Client, database_id: str) -> Dict[str, List[Dict[str, Any]]]:
+def get_latest_end_date_from_override(override_text: str) -> Tuple[int, int]:
     """
-    Build CV data structure from Notion database.
+    Extract the latest end date from a date override string for sorting.
+    
+    Args:
+        override_text (str): Date override string like "Jan 2020 -- Dec 2021, Jan 2023 -- Present"
+        
+    Returns:
+        Tuple[int, int]: (year, month) for sorting
+    """
+    if not override_text:
+        return (0, 0)
+    
+    # Normalize different dash types to standard format
+    normalized_text = override_text.replace("—", "--").replace("–", "--")
+    
+    # Handle multiple date ranges (e.g., "Jan 2020 -- Dec 2021, Jan 2023 -- Present")
+    if "," in normalized_text:
+        ranges = [r.strip() for r in normalized_text.split(",")]
+        end_dates = []
+        
+        for range_str in ranges:
+            if " -- " in range_str:
+                start_part, end_part = range_str.split(" -- ", 1)
+                end_dates.append(end_part.strip())
+        
+        if end_dates:
+            # Find the latest end date (excluding "Present")
+            end_dates_no_present = [d for d in end_dates if d.lower() != "present"]
+            if end_dates_no_present:
+                latest_end = max(end_dates_no_present, key=lambda x: parse_date_for_sorting(x))
+                return parse_date_for_sorting(latest_end)
+            else:
+                return (9999, 12)  # All ranges end with "Present"
+    
+    # Handle single date range
+    if " -- " in normalized_text:
+        start_part, end_part = normalized_text.split(" -- ", 1)
+        return parse_date_for_sorting(end_part.strip())
+    
+    # If no range separator, treat as start date only
+    return parse_date_for_sorting(normalized_text.strip())
+
+
+def fetch_notion_data(notion: Client, database_id: str) -> Dict[str, List[Dict[str, Any]]]:
+    """
+    Fetch raw CV data from Notion database without sorting.
     
     Fetches all entries from the Notion database where "Show on CV?" is True,
-    processes the content, and organizes it by section type.
+    processes the content, and organizes it by section type. Does NOT sort entries.
     
     Args:
         notion (Client): Authenticated Notion client
         database_id (str): ID of the Notion database
         
     Returns:
-        Dict[str, List[Dict[str, Any]]]: CV data organized by section type
+        Dict[str, List[Dict[str, Any]]]: Raw CV data organized by section type (unsorted)
         
     Note:
         This function handles pagination to retrieve all database entries
@@ -499,19 +631,17 @@ def build_cv_data(notion: Client, database_id: str) -> Dict[str, List[Dict[str, 
                     "property": "Show on CV?",
                     "checkbox": {"equals": True},
                 },
-                # Optional: add sorts here if desired
             }
         )
         for page in resp.get("results", []):
             props = page.get("properties", {})
             page_id = page["id"]
             
-            
             type_name = get_prop_text(props, "Type") or "Other"
             name = get_prop_text(props, "Title") or ""
             org = get_prop_text(props, "Organization")
             loc = get_prop_text(props, "Location")
-            start_d, end_d = get_date_range(props)
+            start_d, end_d, date_display = get_date_range(props)
 
             # Fetch and render the body from block children between the two H1s
             children = list_children(notion, page_id)
@@ -526,6 +656,7 @@ def build_cv_data(notion: Client, database_id: str) -> Dict[str, List[Dict[str, 
                 "type": type_name,
                 "start_date": start_d,
                 "end_date": end_d,
+                "date_display": date_display,
                 "is_visible": True,
                 "body_latex": body_latex,
             }
@@ -535,7 +666,19 @@ def build_cv_data(notion: Client, database_id: str) -> Dict[str, List[Dict[str, 
             break
         start_cursor = resp.get("next_cursor")
 
-    # Sort each section by date (newest first)
+    return cv_data
+
+
+def sort_cv_data(cv_data: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dict[str, Any]]]:
+    """
+    Sort CV data by date (newest first) within each section.
+    
+    Args:
+        cv_data (Dict[str, List[Dict[str, Any]]]): Raw CV data from Notion
+        
+    Returns:
+        Dict[str, List[Dict[str, Any]]]: CV data with entries sorted by date
+    """
     for section_name, entries in cv_data.items():
         cv_data[section_name] = sort_entries_by_date(entries)
 
@@ -591,7 +734,8 @@ def main(argv: List[str]) -> int:
         OUT_FILE: Optional. Output file (default: cv.tex)
         
     Command Line Options:
-        --refresh, -r: Force refresh of cached data
+        --refresh, -r: Force refresh of cached data from Notion
+        --sort-only, -s: Only sort cached data, don't fetch from Notion
         
     Note:
         The function implements a caching system to reduce API calls.
@@ -605,39 +749,54 @@ def main(argv: List[str]) -> int:
     out_file = os.getenv("OUT_FILE", "cv.tex")
     cache_file = "notion_cache.json"
     
-    # Check for --refresh flag to force cache refresh
+    # Check for command line flags
     force_refresh = "--refresh" in argv or "-r" in argv
+    sort_only = "--sort-only" in argv or "-s" in argv
 
     if not notion_token or not database_id:
         print("ERROR: NOTION_TOKEN and DATABASE_ID must be set in .env", file=sys.stderr)
         return 2
 
-    # Check if cache exists and is recent (less than 1 hour old)
-    cv_data = None
-    if not force_refresh and os.path.exists(cache_file):
-        try:
-            cache_age = time.time() - os.path.getmtime(cache_file)
-            if cache_age < 3600:  # 1 hour
-                print("Loading data from cache…")
-                with open(cache_file, 'r', encoding='utf-8') as f:
-                    cv_data = json.load(f)
-                print("Using cached data (less than 1 hour old)")
-            else:
-                print("Cache is older than 1 hour, fetching fresh data…")
-        except Exception as e:
-            print(f"Error loading cache: {e}, fetching fresh data…")
-    elif force_refresh:
-        print("Force refresh requested, fetching fresh data…")
+    # Handle different modes
+    if sort_only:
+        # Sort-only mode: load from cache and sort, don't fetch from Notion
+        if not os.path.exists(cache_file):
+            print("ERROR: No cache file found. Use --refresh to fetch data from Notion first.", file=sys.stderr)
+            return 3
+        print("Sort-only mode: Loading data from cache…")
+        with open(cache_file, 'r', encoding='utf-8') as f:
+            cv_data = json.load(f)
+    else:
+        # Normal mode: check cache or fetch from Notion
+        cv_data = None
+        if not force_refresh and os.path.exists(cache_file):
+            try:
+                cache_age = time.time() - os.path.getmtime(cache_file)
+                if cache_age < 3600:  # 1 hour
+                    print("Loading data from cache…")
+                    with open(cache_file, 'r', encoding='utf-8') as f:
+                        cv_data = json.load(f)
+                    print("Using cached data (less than 1 hour old)")
+                else:
+                    print("Cache is older than 1 hour, fetching fresh data…")
+            except Exception as e:
+                print(f"Error loading cache: {e}, fetching fresh data…")
+        elif force_refresh:
+            print("Force refresh requested, fetching fresh data…")
 
-    if cv_data is None:
-        notion = Client(auth=notion_token)
-        print("Fetching data from Notion…")
-        cv_data = build_cv_data(notion, database_id)
-        
-        # Save to cache
-        print("Saving data to cache…")
-        with open(cache_file, 'w', encoding='utf-8') as f:
-            json.dump(cv_data, f, indent=2, ensure_ascii=False)
+        if cv_data is None:
+            notion = Client(auth=notion_token)
+            print("Fetching data from Notion…")
+            cv_data = fetch_notion_data(notion, database_id)
+            
+            # Save raw data to cache (unsorted)
+            print("Saving data to cache…")
+            with open(cache_file, 'w', encoding='utf-8') as f:
+                json.dump(cv_data, f, indent=2, ensure_ascii=False)
+
+    # Sort the data (whether from cache or fresh fetch)
+    print("Sorting CV data…")
+    cv_data = sort_cv_data(cv_data)
 
     print("Rendering LaTeX…")
     render_tex(cv_data, template_file=template_file, out_file=out_file)
