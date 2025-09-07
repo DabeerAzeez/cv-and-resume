@@ -70,11 +70,13 @@ jobs:
         with:
           root_file: cv
           working_directory: ${{ env.DIR }}
+          latex_engine: xelatex
       - name: Compile One-Page CV
         uses: dante-ev/latex-action@latest
         with:
           root_file: cv_one_page
           working_directory: ${{ env.DIR }}
+          latex_engine: xelatex
       - name: move PDFs
         run: mkdir -p github_artifacts && mv ${{ env.DIR }}/cv.pdf ${{ env.DIR }}/cv_one_page.pdf ./github_artifacts/
       - name: Upload PDFs as artifact

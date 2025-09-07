@@ -34,17 +34,17 @@
 %	FONT
 %----------------------------------------------------------------------------------------
 
-% % fontspec allows you to use TTF/OTF fonts directly
-% \usepackage{fontspec}
-% \defaultfontfeatures{Ligatures=TeX}
-
-% % modified for ShareLaTeX use
-% \setmainfont[
-% SmallCapsFont = Fontin-SmallCaps.otf,
-% BoldFont = Fontin-Bold.otf,
-% ItalicFont = Fontin-Italic.otf
-% ]
-% {Fontin.otf}
+% Use Open Sans TTF font directly
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{OpenSans}[
+    Path = fonts/static/,
+    Extension = .ttf,
+    UprightFont = OpenSans-Regular,
+    BoldFont = OpenSans-Bold,
+    ItalicFont = OpenSans-Italic,
+    BoldItalicFont = OpenSans-BoldItalic
+]
 
 %----------------------------------------------------------------------------------------
 %	PACKAGES

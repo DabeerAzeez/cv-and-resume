@@ -34,17 +34,17 @@
 %	FONT
 %----------------------------------------------------------------------------------------
 
-% % fontspec allows you to use TTF/OTF fonts directly
-% \usepackage{fontspec}
-% \defaultfontfeatures{Ligatures=TeX}
-
-% % modified for ShareLaTeX use
-% \setmainfont[
-% SmallCapsFont = Fontin-SmallCaps.otf,
-% BoldFont = Fontin-Bold.otf,
-% ItalicFont = Fontin-Italic.otf
-% ]
-% {Fontin.otf}
+% Use Open Sans TTF font directly
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{OpenSans}[
+    Path = fonts/static/,
+    Extension = .ttf,
+    UprightFont = OpenSans-Regular,
+    BoldFont = OpenSans-Bold,
+    ItalicFont = OpenSans-Italic,
+    BoldItalicFont = OpenSans-BoldItalic
+]
 
 %----------------------------------------------------------------------------------------
 %	PACKAGES
@@ -118,7 +118,7 @@
 % This section displays the candidate's name prominently and includes
 % clickable links to professional profiles (GitHub, LinkedIn, email, phone)
 \begin{tabularx}{\linewidth}{@{} C @{}}
-\Huge{Dabeer Ahmad Abdul Azeez} \\[7.5pt]
+\Huge{\textbf{Dabeer Ahmad Abdul Azeez}} \\[7.5pt]
 \href{https://github.com/dabeerazeez}{\raisebox{-0.05\height}\faGithub\ dabeerazeez} \ $|$ \ 
 \href{https://linkedin.com/in/dabeerabdulazeez}{\raisebox{-0.05\height}\faLinkedin\ dabeerabdulazeez} \ $|$ \ 
 \href{mailto:dabeerazeez@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ dabeerazeez@gmail.com} \ $|$ \ 
