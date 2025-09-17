@@ -4,7 +4,7 @@
 notion_cache.json
 
 # Generated LaTeX files (created by GitHub workflow)
-cv.tex
+# cv.tex
 
 # LaTeX auxiliary files
 *.aux
