@@ -114,4 +114,4 @@ jobs:
         uses: planetoftheweb/copy-to-branches@v1.3
         env:
           key: main
-          files: index.html CNAME
+          files: index.html CNAME assets
