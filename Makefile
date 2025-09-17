@@ -10,9 +10,9 @@ all: update pdf open
 update:
 	python update_cv.py
 
-# Compile the LaTeX file to PDF using latexmk
+# Compile the LaTeX file to PDF using xelatex directly
 pdf:
-	latexmk -pdf ${NAME}.tex
+	xelatex ${NAME}.tex
 
 # Open the generated PDF in the default viewer (Windows)
 open:

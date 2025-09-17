@@ -1,2 +1,32 @@
-assets/
+
 .env
+*.pdf
+notion_cache.json
+
+# Generated LaTeX files (created by GitHub workflow)
+cv.tex
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+*.lof
+*.lot
+*.figlist
+*.makefile
+*.fls
+*.fdb_latexmk
