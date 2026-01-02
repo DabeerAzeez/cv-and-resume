@@ -45,10 +45,12 @@ Optional:
 
 4. **Configure environment variables**:
    ```bash
-   # Create .env file
+   # Create .env file in root of this repo
    NOTION_TOKEN=<get token from Notion Integrations page>
-   DATABASE_ID=<get database ID from database URL>
+   DATA_SOURCE_ID=<get database ID from database settings>
    ```
+
+   For the data source ID you can specifically access the database's settings > Manage data sources > Copy data source ID. Note that this data source ID is NOT the id in the URL of the webpage for the database.
 
 5. **Install dependencies**:
    ```bash

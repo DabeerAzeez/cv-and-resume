@@ -19,7 +19,7 @@ Requirements:
 
 Environment Variables:
     NOTION_TOKEN: Your Notion integration token
-    DATABASE_ID: The ID of your Notion database
+    DATA_SOURCE_ID: The ID of your Notion database
     TEMPLATE_FILE: LaTeX template file (default: cv_template.tex)
     OUT_FILE: Output LaTeX file (default: cv.tex)
 
@@ -623,9 +623,10 @@ def fetch_notion_data(notion: Client, database_id: str) -> Dict[str, List[Dict[s
     start_cursor: Optional[str] = None
 
     while True:
-        resp = notion.databases.query(
+        # Query the Notion Data Source directly (newer API): use data_sources.query
+        resp = notion.data_sources.query(
             **{
-                "database_id": database_id,
+                "data_source_id": database_id,
                 "start_cursor": start_cursor,
                 "filter": {
                     "property": "Show on CV?",
@@ -729,7 +730,7 @@ def main(argv: List[str]) -> int:
         
     Environment Variables:
         NOTION_TOKEN: Required. Your Notion integration token
-        DATABASE_ID: Required. The ID of your Notion database
+        DATA_SOURCE_ID: Required. The ID of your Notion database
         TEMPLATE_FILE: Optional. Template file (default: cv_template.tex)
         OUT_FILE: Optional. Output file (default: cv.tex)
         
@@ -743,7 +744,7 @@ def main(argv: List[str]) -> int:
     """
     load_dotenv()
     notion_token = os.getenv("NOTION_TOKEN")
-    database_id = os.getenv("DATABASE_ID")
+    database_id = os.getenv("DATA_SOURCE_ID")
     template_file = os.getenv("TEMPLATE_FILE", "cv_template.tex")
     
     out_file = os.getenv("OUT_FILE", "cv.tex")
@@ -754,7 +755,7 @@ def main(argv: List[str]) -> int:
     sort_only = "--sort-only" in argv or "-s" in argv
 
     if not notion_token or not database_id:
-        print("ERROR: NOTION_TOKEN and DATABASE_ID must be set in .env", file=sys.stderr)
+        print("ERROR: NOTION_TOKEN and DATA_SOURCE_ID must be set in .env", file=sys.stderr)
         return 2
 
     # Handle different modes
