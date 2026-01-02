@@ -15,9 +15,14 @@ A LaTeX-based CV generator that automatically pulls data from Notion and generat
 
 ### 1. Prerequisites
 
+Required:
 - Python 3.7+
-- LaTeX distribution (MiKTeX, TeX Live, or Overleaf)
+- LaTeX distribution (only MikTeX was tested here)
+- CMAKE ([https://cmake.org/download/](https://cmake.org/download/))
 - Notion account
+
+Optional:
+- Make (to use the Makefile commands, download [chocolatey](https://chocolatey.org/install) and then run `choco install make`)
 
 ### 2. Setup
 
@@ -41,8 +46,8 @@ A LaTeX-based CV generator that automatically pulls data from Notion and generat
 4. **Configure environment variables**:
    ```bash
    # Create .env file
-   NOTION_TOKEN=secret_your_token_here
-   DATABASE_ID=your_database_id_here
+   NOTION_TOKEN=<get token from Notion Integrations page>
+   DATABASE_ID=<get database ID from database URL>
    ```
 
 5. **Install dependencies**:
@@ -166,6 +171,10 @@ The Summary section is manually written. One suggestion is to feed your CV to an
 - Cache expires after 1 hour
 - Use `--refresh` flag to force update
 - Cache file: `notion_cache.json`
+
+### XeLatex
+
+- `XeLaTeX` was used instead of the default `latexmk` to allow different fonts
 
 ## License
 
