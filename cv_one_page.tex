@@ -27,6 +27,9 @@
 %	DOCUMENT DEFINITION
 %----------------------------------------------------------------------------------------
 
+% Magic comment to force xelatex compilation
+%!TEX program = xelatex
+
 % article class because we want to fully customize the page and not use a cv template
 \documentclass[a4paper,10pt]{article}
 
@@ -119,10 +122,11 @@
 % clickable links to professional profiles (GitHub, LinkedIn, email, phone)
 \begin{tabularx}{\linewidth}{@{} C @{}}
 \Huge{Dabeer Ahmad Abdul Azeez} \\[7.5pt]
-\href{https://github.com/dabeerazeez}{\raisebox{-0.05\height}\faGithub\ dabeerazeez} \ $|$ \ 
-\href{https://linkedin.com/in/dabeerabdulazeez}{\raisebox{-0.05\height}\faLinkedin\ dabeerabdulazeez} \ $|$ \ 
+\href{https://linkedin.com/in/dabeerabdulazeez}{\raisebox{-0.05\height}\faLinkedin\ LinkedIn} \ $|$ \ 
+\href{https://github.com/dabeerazeez}{\raisebox{-0.05\height}\faGithub\ GitHub} \ $|$ \ 
 \href{mailto:dabeerazeez@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ dabeerazeez@gmail.com} \ $|$ \ 
-\href{tel:+16477192948}{\raisebox{-0.05\height}\faMobile \ +1 647 719 2948} \\
+\href{tel:+16477192948}{\raisebox{-0.05\height}\faMobile \ +1 647 719 2948} \ $|$ \
+\faMapMarker \ Mississauga, ON, Canada \\
 \end{tabularx}
 
 %----------------------------------------------------------------------------------------
@@ -133,7 +137,7 @@
 % This is a static section that provides a high-level overview of the candidate's
 % background, skills, and career focus without being tied to specific experiences
 \section{SUMMARY}
-Engineering Physics graduate with experience in project management, teaching, and technical development, skilled at communicating complex ideas and leveraging AI tools to deliver user-focused solutions.
+Recent Engineering Physics graduate (biomedical specialization) and self-published author with experience leading 5 teams on year-long project timelines, communicating complex ideas effectively between disciplines and to his students, and leveraging AI and digital tools to deliver solutions that impact 1000s of people.
 
 %----------------------------------------------------------------------------------------
 % SKILLS
@@ -149,10 +153,10 @@ Engineering Physics graduate with experience in project management, teaching, an
 % - Professional: Soft skills and competencies
 % - Languages: Language proficiencies
 \section{SKILLS}
+\renewcommand{\arraystretch}{1.2} % Increase row height for better readability
 \begin{tabularx}{\linewidth}{@{}l X@{}}
-Technical &  \normalsize{Programming (Python, C++, C, MATLAB, HTML/CSS/JS), AI (ChatGPT, Gemini, Claude, Perplexity, Cursor), MS Office (Word, Excel, PowerPoint, OneNote, Project, Power Automate, Bookings, Access, SharePoint, Outlook), Autodesk Inventor, Git/GitHub, PowerShell, Image processing, OOP, GUI development}\\
-Professional  &  \normalsize{Communication, Collaboration, Initiative, Quick learning, Teaching, Public speaking}\\  
-Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spanish (intermediate), Tamil (conversational)}\\
+Technical &  \normalsize{Programming (6+ yrs Python, C/C++, MATLAB/Simulink, HTML/CSS/JS, Git, Cursor), MS Project, Electrical Design (PCB Design, Circuit Analysis, Analog \& Digital Electronics, Signal Processing, PID Control Systems, Microcontroller Programming), Automation (Power Automate, Zapier), Autodesk Inventor} \\
+Languages & \normalsize{English (native), French (proficient), Spanish (intermediate), Tamil (conversational)}\\
 \end{tabularx}
 
 %----------------------------------------------------------------------------------------
@@ -187,8 +191,7 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % Content comes from the "For Resume" section of each Notion page
 % and is pre-processed to convert Notion formatting to LaTeX
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Promoted to Instructional Teaching Assistant, in charge of teaching ~45 students on a weekly basis during labs, answering questions about Python programming and Autodesk Inventor
-\item Evaluated hundreds of student submissions for CAD and Python assignments on a bi-weekly basis
+  \item Promoted to Instructional Teaching Assistant, in charge of supervising 45 students and 2 support assistants on a weekly basis during labs, answering questions about Python programming and Autodesk Inventor
 \end{itemize}
 % Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
 % This format works well for traditional work experience and activities
@@ -197,7 +200,7 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 \begin{minipage}[t]{\linewidth}
   \textbf{L3Harris WESCAM}
  -- Waterdown, ON, Canada \\
-  \textbf{Electro-Optical Engineering Intern (Co-Op)  }
+  \textbf{Electro-Optical Engineering Co-Op (Internship)  }
 \end{minipage}
 &     May 2022 -- Aug 2023
 \end{tabularx}
@@ -205,9 +208,9 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % Content comes from the "For Resume" section of each Notion page
 % and is pre-processed to convert Notion formatting to LaTeX
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Safely handled \$100,000+ electronic equipment and camera systems following ESD procedures
-\item Programmed various MATLAB GUIs and image processing tools to help solve needs in the department
-\item Supervised and trained a junior co-op regularly on all aspects of the role
+  \item Operated \$100K+ sensor, video, vibration, and thermal systems under strict ESD procedures with 0 incidents
+  \item Refined and spearheaded various MATLAB tools and GUIs, saving dozens of hours weekly for 10+ engineers by automating image processing, data analysis, device operation, and report generation tasks
+  \item Trained 2 new interns to independence in weeks, creating documentation and delegating tasks across 6+ projects
 \end{itemize}
 % Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
 % This format works well for traditional work experience and activities
@@ -216,7 +219,7 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Technology Services}
  -- Hamilton, ON, Canada \\
-  \textbf{Project Support Assistant (Co-op)}
+  \textbf{Project Support Assistant (Internship)}
 \end{minipage}
 &     May 2021 -- Aug 2021
 \end{tabularx}
@@ -224,7 +227,7 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % Content comes from the "For Resume" section of each Notion page
 % and is pre-processed to convert Notion formatting to LaTeX
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Collaborated in a team of 4 to create a SharePoint site (16k+ unique visitors, 85k+ views) for campus users to discover and learn Microsoft 365 (M365) tools, following principles of Design Thinking over 13 weeks to accurately fulfill user needs
+  \item Collaborated in a team of 4 to create a SharePoint site (16k+ unique visitors, 85k+ views) for campus users to learn Microsoft 365 tools, following Design Thinking principles over 13 weeks to accurately meet user needs
 \item Actively voiced the student perspective in staff meetings to highlight relevant concerns and presented regularly to management up to CTO about project progress
 \item Organized dozens of interviews, conducted environmental scans, and analyzed over 150 survey results from campus members to determine user needs and design guidelines
 \end{itemize}
@@ -243,9 +246,11 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % Bullet points describing the role/project details
 % Content comes from the "For Resume" section of each Notion page
 % and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Demonstrated leadership, communication, and organization skills by leading 25+ weekly team practices, welcoming new members, and directing teams of 5-8 people through 15+ executive meetings each year, resulting in over 100\% club growth and a significant increase in ticket sales (from \$0/yr to \textasciitilde\$1400/yr)
-\item Guided expanding teams of 12-20 people (many with no prior experience) to perform a 90-minute improv show in front of crowds of 100 people by the end of the school year
+  \item Led teams of 15 through 25+ practices yearly to perform to audiences of 100 and managed teams of 5-8 through 15+ executive meetings, driving >800\% club growth and a ticket sales increase from \$0 to \$1400/yr
+  \item Mentored new executives and organized 100+ pages of documentation to ensure smooth leadership transitions
+  \item Handled discrimination complaints professionally and sensitively, ensuring a safe and inclusive environment
 \end{itemize}
 
 \section{PROJECTS}
@@ -258,12 +263,8 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 \end{minipage}
 &     Sep 2024 -- Apr 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
-\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Designed and built a cardiac catheterization testing apparatus for Boston Scientific, providing a cost-effective and ethical alternative to animal testing. Developed a MATLAB GUI for device control and data monitoring, and managed the project timeline for a five-member team.
-\end{itemize}
+
+Designed and iterated on a precisely tuned flow circuit for Boston Scientific to test their cardiac catheter devices, providing a cost-effective and ethical alternative to animal testing. Independently developed a MATLAB GUI for pump control and data monitoring, leveraging MS Project to manage a team of 5 over 8 months.
 
 %----------------------------------------------------------------------------------------
 % EDUCATION
@@ -285,6 +286,6 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % Content comes from the "For Resume" section of the education entry
 
 Relevant Coursework: \textit{Biomedical Engineering Design Projects (I/II/III), Biomedical Signals \& Systems,
-Embedded Microcontrollers, Data Structures / Algorithms}
+Embedded Microcontrollers, Non-Linear \& Active Circuits, Data Structures / Algorithms, Fluid Mechanics \& Heat Transfer, Photonic Devices}
 
 \end{document}
