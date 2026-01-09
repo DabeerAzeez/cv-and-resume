@@ -2,6 +2,7 @@
 .env
 *.pdf
 notion_cache.json
+/__pycache__/
 
 # Generated LaTeX files (created by GitHub workflow)
 # cv.tex
