@@ -103,6 +103,11 @@ cv-and-resume/
 └── notion_cache.json   # API response cache
 ```
 
+## Branch Structure
+
+- `main` should be where all manual changes to the repo are done
+- `build` branch is automatically updated by the GitHub action that generates the PDF files for uploading onto the GitHub Pages webpage; it should not be edited manually
+
 ## GitHub Actions
 
 The repository includes automated CV updates via GitHub Actions:
@@ -112,6 +117,13 @@ The repository includes automated CV updates via GitHub Actions:
 - **Manual Triggers**: Can be triggered manually from the GitHub Actions tab
 - **Cache Control**: Option to force refresh Notion cache when running manually
 - **Auto-commit**: Automatically commits updated CV files back to the repository
+
+### Workflow Features
+- Fetches latest data from Notion
+- Compiles LaTeX to PDF
+- Uploads PDF as artifact (retained for 30 days), pushed to `build` branch
+- Commits changes back to repository
+- Skips CI on auto-commits to prevent loops
 
 ### Setup GitHub Actions
 
@@ -129,13 +141,6 @@ The repository includes automated CV updates via GitHub Actions:
    - Go to Actions → Update CV → Run workflow
    - Choose whether to refresh the Notion cache
    - Click "Run workflow"
-
-### Workflow Features
-- Fetches latest data from Notion
-- Compiles LaTeX to PDF
-- Uploads PDF as artifact (retained for 30 days)
-- Commits changes back to repository
-- Skips CI on auto-commits to prevent loops
 
 ## Customization
 
