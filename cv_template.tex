@@ -80,15 +80,16 @@
 
 %CV Sections inspired by: 
 %http://stefano.italians.nl/archives/26
-\titleformat{\section}{\fontsize{10}{12}\selectfont\bfseries\raggedright}{}{0em}{}[\titlerule]
+\definecolor{accent}{RGB}{79,133,244} % light blue accent for first name
+\titleformat{\section}{\fontsize{10}{12}\selectfont\bfseries\raggedright}{}{0em}{}[\titleline{\color{accent}\titlerule[1.2pt]}]
 \titlespacing{\section}{0pt}{10pt}{10pt}
 
 %for publications (removed biblatex)
 
 %Setup hyperref package, and colours for links
 \usepackage[unicode, draft=false]{hyperref}
-\definecolor{linkcolour}{rgb}{0,0.2,0.6}
-\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
+\definecolor{titlebg}{HTML}{F3F4F6} % light grey background for header
+\hypersetup{colorlinks,breaklinks,urlcolor=accent,linkcolor=accent}
 % Removed bibliography functionality
 
 %for social icons
@@ -114,16 +115,28 @@
 %	TITLE
 %----------------------------------------------------------------------------------------
 
+{% raw %}
 % Personal header with name and contact information
 % This section displays the candidate's name prominently and includes
 % clickable links to professional profiles (GitHub, LinkedIn, email, phone)
-\begin{tabularx}{\linewidth}{@{} C @{}}
-\Huge{Dabeer Ahmad Abdul Azeez} \\[7.5pt]
-\href{https://github.com/dabeerazeez}{\raisebox{-0.05\height}\faGithub\ dabeerazeez} \ $|$ \ 
-\href{https://linkedin.com/in/dabeerabdulazeez}{\raisebox{-0.05\height}\faLinkedin\ dabeerabdulazeez} \ $|$ \ 
-\href{mailto:dabeerazeez@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ dabeerazeez@gmail.com} \ $|$ \ 
-\href{tel:+16477192948}{\raisebox{-0.05\height}\faMobile \ +1 647 719 2948} \\
-\end{tabularx}
+\begingroup\setlength{\fboxsep}{8pt}%
+\hypersetup{urlcolor=accent,linkcolor=accent}%
+\noindent\makebox[\linewidth][l]{%
+  \colorbox{titlebg}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \begin{tabularx}{\linewidth}{@{} C @{} }
+        \Huge{\textbf{\textcolor{accent}{Dabeer Ahmad} \textcolor{black}{Abdul Azeez}}} \\[7.5pt]
+        \href{https://linkedin.com/in/dabeerabdulazeez}{\raisebox{-0.05\height}\faLinkedin\ LinkedIn} \ $|$ \ 
+        \href{https://github.com/dabeerazeez}{\raisebox{-0.05\height}\faGithub\ GitHub} \ $|$ \ 
+        \href{mailto:dabeerazeez@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ dabeerazeez@gmail.com} \ $|$ \ 
+        \raisebox{-0.05\height}\faMobile \ +1 647 719 2948 \ $|$ \
+        \faMapMarker \ Mississauga, ON, Canada \\
+      \end{tabularx}
+    }%
+  }%
+}%
+\endgroup
+{% endraw %}
 
 %----------------------------------------------------------------------------------------
 % SUMMARY
@@ -215,7 +228,7 @@ Languages & \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spa
 % Content comes from the "For Resume" section of each Notion page
 % and is pre-processed to convert Notion formatting to LaTeX
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  {{ item.body_latex | safe }}
+  {{ item.body_latex | replace('}{peer-reviewed publication}', '}{\\textcolor{accent}{peer-reviewed publication}}') | safe }}
 \end{itemize}
 {% endfor %}
 {% endif %}
