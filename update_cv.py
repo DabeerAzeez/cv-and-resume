@@ -20,7 +20,7 @@ Requirements:
 Environment Variables:
     NOTION_TOKEN: Your Notion integration token
     DATA_SOURCE_ID: The ID of your Notion database
-    TEMPLATE_FILE: LaTeX template file (default: cv_template.tex)
+    TEMPLATE_FILE: LaTeX template file (default: cv_template.tex.jinja)
     OUT_FILE: Output LaTeX file (default: cv.tex)
 
 Usage:
@@ -731,7 +731,7 @@ def main(argv: List[str]) -> int:
     Environment Variables:
         NOTION_TOKEN: Required. Your Notion integration token
         DATA_SOURCE_ID: Required. The ID of your Notion database
-        TEMPLATE_FILE: Optional. Template file (default: cv_template.tex)
+        TEMPLATE_FILE: Optional. Template file (default: cv_template.tex.jinja)
         OUT_FILE: Optional. Output file (default: cv.tex)
         
     Command Line Options:
@@ -745,7 +745,7 @@ def main(argv: List[str]) -> int:
     load_dotenv()
     notion_token = os.getenv("NOTION_TOKEN")
     database_id = os.getenv("DATA_SOURCE_ID")
-    template_file = os.getenv("TEMPLATE_FILE", "cv_template.tex")
+    template_file = os.getenv("TEMPLATE_FILE", "cv_template.tex.jinja")
     
     out_file = os.getenv("OUT_FILE", "cv.tex")
     cache_file = "notion_cache.json"
