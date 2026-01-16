@@ -6,13 +6,18 @@ NAME=cv
 # Main workflow: update from Notion, build PDF, and open it
 all: update pdf open
 
+# Remake the cv.tex file from the template
+render:
+	python update_cv.py --sort-only
+
 # Fetch latest data from Notion and generate cv.tex
 update:
 	python update_cv.py
 
 # Compile the LaTeX file to PDF using xelatex directly
 pdf:
-	xelatex ${NAME}.tex
+	xelatex -interaction=nonstopmode -synctex=1 -output-directory=.build ${NAME}.tex
+	move .build\${NAME}.pdf ${NAME}.pdf
 
 # Open the generated PDF in the default viewer (Windows)
 open:

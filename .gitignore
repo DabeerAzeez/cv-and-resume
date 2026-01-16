@@ -3,6 +3,7 @@
 *.pdf
 notion_cache.json
 /__pycache__/
+/.build/
 
 # Generated LaTeX files (created by GitHub workflow)
 # cv.tex
@@ -31,3 +32,4 @@ notion_cache.json
 *.makefile
 *.fls
 *.fdb_latexmk
+*.synctex(busy)
