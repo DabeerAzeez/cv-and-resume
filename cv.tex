@@ -55,56 +55,37 @@
 \usepackage{url}
 \usepackage{parskip} 	
 
-%other packages for formatting
 \RequirePackage{color}
 \RequirePackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage[scale=0.9, top=0.5in,bottom=0.4in]{geometry}
 
-%tabularx environment
 \usepackage{tabularx}
 
-%for lists within experience section
 \usepackage{enumitem}
 
 % centered version of 'X' col. type
 \newcolumntype{C}{>{\centering\arraybackslash}X} 
 
-%to prevent spillover of tabular into next pages
 \usepackage{supertabular}
 \usepackage{tabularx}
 \newlength{\fullcollw}
 \setlength{\fullcollw}{0.47\textwidth}
 
-%custom \section
 \usepackage{titlesec}				
 \usepackage{multicol}
 \usepackage{multirow}
 
-%CV Sections inspired by: 
-%http://stefano.italians.nl/archives/26
-\definecolor{accent}{RGB}{79,133,244} % light blue accent for first name
+\definecolor{accent}{RGB}{79,133,244}
 \titleformat{\section}{\fontsize{10}{12}\selectfont\bfseries\raggedright}{}{0em}{}[\titleline{\color{accent}\titlerule[1.2pt]}]
 \titlespacing{\section}{0pt}{10pt}{10pt}
 
-%for publications (removed biblatex)
-
-%Setup hyperref package, and colours for links
 \usepackage[unicode, draft=false]{hyperref}
-\definecolor{titlebg}{HTML}{F3F4F6} % light grey background for header
+\definecolor{titlebg}{HTML}{F3F4F6}
 \hypersetup{colorlinks,breaklinks,urlcolor=accent,linkcolor=accent}
-% Removed bibliography functionality
 
 %for social icons
 \usepackage{fontawesome5}
-
-%debug page outer frames
-%\usepackage{showframe}
-
-
-% job listing environments
-
-
 
 %----------------------------------------------------------------------------------------
 %	BEGIN DOCUMENT
@@ -119,9 +100,6 @@
 %----------------------------------------------------------------------------------------
 
 
-% Personal header with name and contact information
-% This section displays the candidate's name prominently and includes
-% clickable links to professional profiles (GitHub, LinkedIn, email, phone)
 \begingroup\setlength{\fboxsep}{8pt}%
 \hypersetup{urlcolor=accent,linkcolor=accent}%
 \noindent\makebox[\linewidth][l]{%
@@ -155,22 +133,10 @@
 % EXPERIENCE / EXTRACURRICULARS / PROJECTS
 %----------------------------------------------------------------------------------------
 
-% Dynamic sections populated from Notion database via Jinja2 templating
-% These sections are generated automatically from the Notion database entries
-% where "Show on CV?" is set to True. The sections include:
-% - Work Experience: Professional work experience
-% - Leadership and Other Experience: Volunteer work, clubs, activities, leadership roles
-% - Projects: Personal and academic projects
-% 
-% Jinja2 template logic:
-% - Loops through each section type
-% - Filters entries where is_visible is True
-% - Renders each entry with organization, location, dates, and description
-% - Uses different formatting for Projects (no organization/role) vs others
 \section{WORK EXPERIENCE}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster iBioMed - Hamilton, ON, Canada - Laboratory Teaching Assistant
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster iBioMed}
@@ -179,18 +145,16 @@
 \end{minipage}
 &     Sep 2020 — Apr 2021, Sep 2023 — Apr 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Led 12 labs per semester, supervising 45 students and 2 support TAs after promotion to Instructional TA, ensuring effective instruction in Python programming and Autodesk Inventor
 \item Reduced manual grading effort by 50\% by writing Pytest unit tests to grade 500+ Python assignment submissions yearly
 \item Expanded the instructional TA (ITA) pipeline by mentoring 4 support TAs to lead lab sessions, addressing TA shortages by successfully motivating them to pursue ITA roles afterwards
 \item Accelerated onboarding for new ITAs by authoring a concise teaching guide documenting effective explanation and engagement strategies
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% L3Harris WESCAM - Waterdown, ON, Canada - Electro-Optical Engineering Intern (Co-Op)  
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{L3Harris WESCAM}
@@ -199,9 +163,7 @@
 \end{minipage}
 &     May 2022 -- Aug 2023
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Saved 40+ engineer hours per week across a 10+ person team by spearheading MATLAB tools and GUIs that automated image processing, data analysis, device operation, and report generation
 \item Streamlined camera line-of-sight jitter vibration testing by 10\% through improvements to the in-house MATLAB/C++ GUI, collecting sensor data used in engineering evaluations of block camera electronic image stabilization systems
@@ -209,9 +171,9 @@
 \item Completed overdue calibration for 15 electro-optical devices—some delayed by multiple years—by coordinating suppliers and engineers to optimize shipment timing and tracking calibration data in Excel.
 \item Trained 2 new interns to independence in weeks, creating 20+ pages of documentation and delegating tasks across 6+ projects to ensure continued project success
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster Health Sciences - Hamilton, ON, Canada - Anatomy Teaching Assistant
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Health Sciences}
@@ -220,17 +182,15 @@
 \end{minipage}
 &     Sep 2021 -- Apr 2022
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Enabled effective hands-on anatomy learning for 30–40 students per session by leading guided dissections and answering real-time questions during complex lab activities
 \item Maintained 0 safety incidents across 7 lab sessions by enforcing anatomy lab safety protocols during dissections involving human specimens
 \item Improved exam preparedness for 100+ students by authoring \textasciitilde{}40 practice questions and co-hosting end-of-semester review sessions with fellow TAs
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster Technology Services - Hamilton, ON, Canada - Project Support Assistant (Co-op)
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Technology Services}
@@ -239,9 +199,7 @@
 \end{minipage}
 &     May 2021 -- Aug 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Improved M365 tool adoption campus-wide by co-creating a SharePoint discovery site that aided 100s of private consultations, reached 16,000+ unique users, and gained 85,000+ views in 13 weeks, delivering targeted guidance for faculty, staff, and students
 \item Reduced Microsoft Teams course setup time by 95\% (10 hrs to <10 min.) by developing a custom PowerShell automation to assign roles and private channels for a professor’s course
@@ -249,9 +207,9 @@
 \item Delivered a zero-incident virtual conference experience for 250+ attendees by coordinating 10+ staff through Microsoft Lists while providing live Zoom production support for a regional CBIE event
 \item Shaped team-wide content and design guidelines by analyzing 150+ survey responses and conducting 15+ user interviews and environmental scans
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% Hoare Labs - Hamilton, ON, Canada - Undergraduate Research Assistant (Co-op)
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Hoare Labs}
@@ -260,16 +218,14 @@
 \end{minipage}
 &     Jun 2020 -- Aug 2020
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Co-authored a \href{https://www.researchgate.net/publication/345920701_Gravity_Steam_Reprocessing_in_Healthcare_Facilities_for_the_Reuse_of_N95_Respirators}{\textcolor{accent}{peer-reviewed publication}} in the \textit{Journal of Hospital Infection} cited by \textasciitilde{}10 groups, leading literature review and producing the graphical abstract for research on N95 respirator steam reprocessing
 \item Saved 100s of researcher hours annually for a team of 10–20 researchers by designing and building an online interactive JavaScript + Wix API database indexing 100+ lab papers and patents
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% YMCA - Mississauga, ON, Canada - Swim Instructor and Lifeguard
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{YMCA}
@@ -278,9 +234,7 @@
 \end{minipage}
 &     Sep 2017 -- Aug 2019
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Maintained zero major safety incidents by enforcing aquatic safety protocols and coordinating a 4-guard rotation for up to 50 patrons, including evacuations and minor first aid response
 \item Taught 100+ students aged 3–16 by adapting instruction methods to varied skill levels and classes of up to 18, improving engagement and skill progression
@@ -288,9 +242,9 @@
 \item Mentored 5+ new instructors and volunteers by providing teaching feedback and safety orientation, accelerating onboarding and instructional consistency
 \end{itemize}
 \section{LEADERSHIP AND OTHER EXPERIENCE}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster Acappella - Hamilton, ON, Canada - Team Director
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Acappella}
@@ -299,18 +253,16 @@
 \end{minipage}
 &     Sep 2023 -- Apr 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Optimized weeks of practice time by streamlining deadlines and schedules via Excel Gantt charts and Microsoft Teams
 \item Led the ensemble through high-stakes auditions and competitions, including ICCA Regional Quarterfinals (2024–25) and Queen’s A Cappella Competition (2023–24)
 \item Delivered the group’s first ever public release on Spotify in 3 weeks by managing end-to-end production, including recording coordination between 12 members, post-production, and publishing
 \item Performed >25 songs at 6 performances including solo features for audiences of up to 350
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster Improv - Hamilton, ON, Canada - Co-President
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Improv}
@@ -319,18 +271,16 @@
 \end{minipage}
 &     May 2022 -- Apr 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Drove >800\% club growth and a ticket sales increase from \$0 to \$1400/yr by revolutionizing the club structure, leading 25+ practices per year, directing shows for 200+ attendees yearly, and managing a 5–8 person executive team
 \item Accelerated executive onboarding by 95\% and ensured long-term club growth by building a Notion knowledge base with 100s of pages of timelines, executive guides, and resources used across multiple leadership transitions
 \item Fostered year-on-year performance development for 50+ club members by co-creating a 60+ page, two-level improv curriculum with a professional coach over 3 years
 \item Maintained a safe and inclusive club environment by professionally handling discrimination complaints in coordination with campus ombudsman and equity offices
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% Ontario Engineering Competition (OEC) - Hamilton, ON, Canada - Director of Sponsorships
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Ontario Engineering Competition (OEC)}
@@ -339,16 +289,14 @@
 \end{minipage}
 &     Sep 2024 -- Jan 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Raised approximately \$75,000 in competition funding by conducting targeted company outreach, stepping in to cover the unexpected departure of a sponsorship director
 \item Reduced rulebook translation time by \textasciitilde{}80\% by translating a 100-page official competition rulebook into French using AI-assisted tools with manual review
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster Engineering Competition (MEC) - Hamilton, ON, Canada - VP Public Relations
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Engineering Competition (MEC)}
@@ -357,9 +305,7 @@
 \end{minipage}
 &     May 2024 -- Nov 2024
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Raised \$4,000 in sponsorships (400\% of initial target) from 8+ companies (6 new this year) through cold emailing, LinkedIn networking, and in-person outreach at career fairs and at local businesses, recovering flawlessly from the unexpected departure of a major sponsor
 \item Secured \$8,000 in additional faculty funding by co-delivering a sponsorship presentation with the VP Finance
@@ -367,9 +313,9 @@
 \item Achieved 0 major incidents and supported 10 simultaneous competitions by co-coordinating with VP Operations to redistribute tasks and oversee logistics in the Chair’s absence
 \item Streamlined onboarding by authoring \textasciitilde{}100 pages of documentation across 15 executive roles, standardizing processes and templates for seamless team succession
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% Volunteer - Hamilton, ON, Canada - FrancoFEST Volunteer
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Volunteer}
@@ -378,16 +324,14 @@
 \end{minipage}
 &     Jun 2023 -- Jun 2023
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Helped lead and collaborate with \textasciitilde{}10 high-school volunteers to mount/dismount dozens of tents and clean dozens of garbage cans during the festival
 \item Communicated in English and French at the information booth to dozens of customers, volunteers, artists, partners, etc.
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster Improv - Hamilton, ON, Canada - Vice President Outreach
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Improv}
@@ -396,16 +340,14 @@
 \end{minipage}
 &     May 2020 -- Dec 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Organized an online summit between 6 universities, garnering 40+ participants and growing club connections
 \item Led weekly 2-hour improv practices for groups of up to 20 with all skill levels
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster iBioMed - Hamilton, ON, Canada - Student Ambassador
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster iBioMed}
@@ -414,17 +356,15 @@
 \end{minipage}
 &     Sep 2020 -- Dec 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Edited and shipped \textasciitilde{}5 one-hour podcast episodes in the debut year using Audacity; created editing SOPs and trained 2 successors to sustain production (\href{https://open.spotify.com/show/4WAJ7p2gyv36ldqck2FnYx}{Spotify link})
 \item Established the initial podcast editing workflow from scratch, introducing time-saving practices that streamlined production
 \item Engaged dozens of prospective students informally at recruitment events and 1:1, answering questions about the program and student life
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% EngHacks - Remote - Workshop Leader
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{EngHacks}
@@ -433,15 +373,13 @@
 \end{minipage}
 &     Jun 2021 -- Jun 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Delivered a 90-minute intro to web development (HTML/CSS/JS, Bootstrap) to 80+ attendees, enabling participants to ship a simple site by session end (\href{https://youtu.be/zOP5vlfDxjE}{YouTube link})
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% Stanford University: Code In Place - Remote - Section Leader
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Stanford University: Code In Place}
@@ -450,17 +388,15 @@
 \end{minipage}
 &     Apr 2021 -- May 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Selected as a section leader for Stanford’s \textit{Code in Place} program, teaching Python fundamentals to 5 learners over 5 sessions using the official Stanford curriculum
 \item Guided students through exercises and assignments, improving problem-solving confidence in a remote learning environment
 \item Reviewed code submissions and provided targeted feedback on clarity and efficiency, reducing common errors and reinforcing best practices
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster Engineering Society - Hamilton, ON, Canada - IT Coordinator
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Engineering Society}
@@ -469,15 +405,13 @@
 \end{minipage}
 &     May 2020 -- Apr 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Administered the society’s \href{https://www.macengsociety.ca/}{website} backend for thousands of students and proposed improvements to email security and workflow efficiency
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster IT Student Committee - Hamilton, ON, Canada - Engineering Society Representative
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster IT Student Committee}
@@ -486,16 +420,14 @@
 \end{minipage}
 &     May 2020 -- Apr 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Designed a framework for developing students' digital skills, commended by Directory of IT Strategy \& CTO
 \item Quoted on \href{https://dailynews.mcmaster.ca/worthmentioning/mcmaster-student-email-is-changing-this-summer-heres-what-you-need-to-know/}{McMaster Daily News}
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% StudentZ Network - Remote - Tutor (Physics, Calculus, English)
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{StudentZ Network}
@@ -504,17 +436,15 @@
 \end{minipage}
 &     May 2020 -- Jun 2020
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Curated lesson plans for two students by attending to their specific strengths and weaknesses
 \item Delivered 4 hours of online tutoring sessions weekly
 \item Used Google Classroom for efficient and effective teaching and learning
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% McMaster Engineering - Hamilton, ON, Canada - Student Ambassador \& Tour Guide
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Engineering}
@@ -523,15 +453,13 @@
 \end{minipage}
 &     Nov 2019 -- Apr 2020
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Led families on 30 minute campus tours at recruitment events, engaging with dozens of prospective students
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+
+% YMCA - Mississauga, ON, Canada - Assistant Swim Instructor
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{YMCA}
@@ -540,9 +468,7 @@
 \end{minipage}
 &     Jun 2017 -- Jun 2019
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Assisted regular swim instructors in teaching and supervising up to 12 children for 30 minute classes
 \item Taught older children independently under supervision
@@ -550,177 +476,166 @@
 \item Communicated with parents, participants, swim instructors, and deck supervisors to ensure safety and efficiency of swim lessons
 \end{itemize}
 \section{PROJECTS}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% Automated Resume Management Pipeline
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Automated Resume Management Pipeline}
 \end{minipage}
 &     Sep 2025 -- Oct 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Saved dozens of hours and ensured consistent formatting across multiple platforms by building a resume pipeline using Notion API, Python, Jinja2-generated LaTeX templates, Cursor, and GitHub Actions workflows, enabling seamless updates from Notion to live website in under 3 minutes
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% Cardiac Catheterization Testing Apparatus (Capstone Project)
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Cardiac Catheterization Testing Apparatus (Capstone Project)}
 \end{minipage}
 &     Sep 2024 -- Apr 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Delivered a cost-effective (10\% cost of commercial device) ethical alternative to animal testing by designing and iterating a precisely tuned flow circuit for Boston Scientific cardiac catheter devices, saving weeks of inefficient wait times compared to traditional animal testing.
 \item Managed a 5-person team over 8 months using MS Project, coordinating tasks and timelines to consistent on-schedule project delivery and A+ success in the course
 \item Engineered a 1000x amplifier circuit for medical-grade pressure sensor data with <2\% noise and implemented a PWM system via Arduino to simulate fixed and heartbeat pulsatile flow rates
 \item Accelerated testing efficiency by developing a MATLAB GUI front end for pump control and real-time data monitoring, improving usability and workflow for a team of 10 engineers
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% PID Temperature Controller
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{PID Temperature Controller}
- -- Hamilton, ON, Canada\end{minipage}
+\end{minipage}
 &     Jan 2022 -- Apr 2022
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Achieved accurate and rapid (<5 s settling time ±1\%) temperature control of a thermoelectric cooler by developing and tuning a PID control algorithm, circuit, user interface over 4 months using C/MATLAB and an MSP430 microcontroller
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% Cerebral Palsy Gait Monitor
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Cerebral Palsy Gait Monitor}
- -- Hamilton, ON, Canada\end{minipage}
+\end{minipage}
 &     Jan 2022 -- Apr 2022
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Enabled objective pre- and post-operative gait comparison for cerebral palsy patients by designing a wireless gait monitoring system integrating FSR and IMU sensors into an instrumented sock
 \item Improved clinical usability by developing a real-time MATLAB GUI that visualized sagittal foot angle and plantar pressure distribution from Bluetooth sensor data
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% MATLAB Numerical Methods Visualizer
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{MATLAB Numerical Methods Visualizer}
 \end{minipage}
 &     Nov 2021 -- Dec 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Developed a MATLAB app using OOP principles and a GUI as a teaching tool for many numerical methods concepts learned in class
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% PCB Student Number Display
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{PCB Student Number Display}
 \end{minipage}
 &     Mar 2021 -- Dec 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Used k-mapping, boolean algebra, and sequential logic to design a circuit to display a looping student number on an 8-bit LED display
 \item Expanded past classroom expectations to a portable PCB design with 4 scrolling displays and memory storage
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% Ultrasonic Range Finder Circuit
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Ultrasonic Range Finder Circuit}
 \end{minipage}
 &     Nov 2021 -- Dec 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Used 555 timers, operational amplifiers, counters, and speakers to translate an ultrasonic time of flight to a distance on a 7-segment display
 \item Created circuit diagrams and a working model on MultiSim
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% Virtrolio - Yearbook Signing Web App
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Virtrolio - Yearbook Signing Web App}
 \end{minipage}
 &     Apr 2020 -- Jun 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Created \href{https://virtrolio.web.app/}{Virtrolio}\textit{, }a live Angular/Firebase virtual yearbook web app which reached 350+ users
 \item Worked remotely with a team of 8, featured on \href{https://www.mississauga.com/community-story/10071561--something-to-cherish-former-mississauga-students-launch-online-yearbook/}{Mississauga} news website
 \item Developed a Python script to automate updating the site changelog
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% FEM Rocket Heat \& Dynamics Model
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{FEM Rocket Heat \& Dynamics Model}
 \end{minipage}
 &     Mar 2021 -- Apr 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Used Python to automate an FEM solver and optimize input parameters
 \item Modelled real differential equations for solid-fuel rocket travel and heat flow
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% Research Publications Database
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Research Publications Database}
 \end{minipage}
 &     Jun 2020 -- Aug 2020
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Developed interactive online database of over 100 research papers and patents using asynchronous Javascript and Wix API
 \end{itemize}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+
+% Baby Orientation Monitor
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{Baby Orientation Monitor}
 \end{minipage}
 &     Jan 2020 -- Jun 2020
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Developed a multithreaded Python program for a Raspberry Pi to interpret orientation sensor data and display information to an interactive GUI
 \end{itemize}
@@ -729,10 +644,9 @@
 % EDUCATION
 %----------------------------------------------------------------------------------------
 
-% Educational background including degrees, institutions, and dates
-% This section is populated from Notion database entries with Type="Education"
-% and includes degree name, institution, location, and graduation dates
 \section{EDUCATION}
+
+% McMaster University - Hamilton, ON, Canada - Engineering Physics (B.Eng., GPA 3.95/4.00)
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster University}
@@ -741,8 +655,6 @@
 \end{minipage}
 &     Sep 2019 -- Apr 2025
 \end{tabularx}
-% Additional details like GPA, relevant coursework, or achievements
-% Content comes from the "For Resume" section of the education entry
 
 \textit{Dean’s List GPA (4 yrs); Co-op placement (1 yr); Provost Honour Roll (all A+, final year)}
 
@@ -753,9 +665,6 @@ Embedded Microcontrollers, Data Structures / Algorithms, Numerical Methods for E
 % SKILLS
 %----------------------------------------------------------------------------------------
 
-% Technical and professional skills organized by category
-% This section is static and manually curated to highlight the most relevant
-% skills for the candidate's target roles. Categories include:
 \section{SKILLS \& INTERESTS}
 \begin{tabularx}{\linewidth}{@{}l X@{}}
   \textbf{Engineering} &
@@ -780,106 +689,99 @@ Embedded Microcontrollers, Data Structures / Algorithms, Numerical Methods for E
 % AWARDS
 %----------------------------------------------------------------------------------------
 
-% Recognition, honors, and awards received
-% This section highlights academic achievements, professional recognition,
-% competitions won, or other notable accomplishments
 \section{AWARDS}
+
+% Jones Family Academic Grant
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{Jones Family Academic Grant} & \hfill &     Jan 2025
  \end{tabularx}
-% Additional details about the award, organization, or criteria
+
 Awarded the sole yearly \$5,000 grant in the Faculty of Engineering, which recognizes students for strong academic achievement and demonstrated financial need.
 
 
 \vspace{6pt}
 
+
+% University (Senate) Scholarship
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{University (Senate) Scholarship} & \hfill &     Jan 2025
  \end{tabularx}
-% Additional details about the award, organization, or criteria
+
 Awarded an \$800\textbf{ }scholarship, one of 300 provided annually to undergraduate students who achieve outstanding academic standing.
 
 
 \vspace{6pt}
 
+
+% H.L. Hooker Scholarship
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{H.L. Hooker Scholarship} & \hfill &     Jan 2025
  \end{tabularx}
-% Additional details about the award, organization, or criteria
+
 Awarded a \$1,500 scholarship, one of 80 provided annually to undergraduate students who achieve outstanding academic standing.
 \vspace{6pt}
 
+
+% NSERC Undergraduate Research Award
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{NSERC Undergraduate Research Award} & \hfill &     May 2020
  \end{tabularx}
-% Additional details about the award, organization, or criteria
+
 Awarded a highly competitive \$6,000 NSERC Undergraduate Research Award to conduct a full-time research project with a faculty supervisor, underscoring strong academic standing and research potential.
 \vspace{6pt}
 
+
+% SAG General Bursary
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{SAG General Bursary} & \hfill &     Sep 2019
  \end{tabularx}
-% Additional details about the award, organization, or criteria
+
 Awarded a general bursary to support educational costs, demonstrating a strong commitment to academic pursuits.
 \vspace{6pt}
 
+
+% President’s Award
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{President’s Award} & \hfill &     Sep 2019
  \end{tabularx}
-% Additional details about the award, organization, or criteria
+
 Awarded \$2,500 for a prestigious entrance scholarship that recognizes academic excellence and a final high school admission average of 95\% or greater.
 
 
 \vspace{6pt}
 
+
+% University of Toronto National Biology Scholar 2019 
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{University of Toronto National Biology Scholar 2019 } & \hfill &     Jan 2019
  \end{tabularx}
-% Additional details about the award, organization, or criteria
+
 Scored top 5\% in Canada on the University of Toronto National Biology Competition
 
 %----------------------------------------------------------------------------------------
 % PUBLICATIONS
 %----------------------------------------------------------------------------------------
 
-% Research papers, articles, or other publications
-% This section is for academic or professional publications
-% and includes paper titles, authors, journals, and publication details
 \section{PUBLICATIONS}
-% Publication details including title, authors, journal, year, etc.
-% Content is formatted as plain text since publications often have
-% complex formatting requirements
+
+% 12 Things I Learned By 21
 Abdul-Azeez, Dabeer. \textit{12 Things I Learned By 21: and how I'd explain them to my 14-year-old self}. Self-published, January 9, 2023. \href{https://a.co/d/1IZYYJJ}{Link to publication}.
 \vspace{8pt}
 
-% Publication details including title, authors, journal, year, etc.
-% Content is formatted as plain text since publications often have
-% complex formatting requirements
+
+% M365 Update
 McMaster University. “McMaster student email is changing this summer – here’s what you need to know.” \textit{McMaster University}, March 18, 2021. \href{https://dailynews.mcmaster.ca/worthmentioning/mcmaster-student-email-is-changing-this-summer-heres-what-you-need-to-know/}{Link to publication}.
 \vspace{8pt}
 
-% Publication details including title, authors, journal, year, etc.
-% Content is formatted as plain text since publications often have
-% complex formatting requirements
+
+% Gravity steam reprocessing in healthcare facilities for the reuse of N95 respirators
 Hoare, T. R., et al. “N95 Filtering Facepiece Respirator Reprocessing by Steam: A Large-Scale in-Hospital Implementation Study.” \textit{Journal of Hospital Infection, }2020. \href{https://www.sciencedirect.com/science/article/pii/S0195670120304576#!}{Link to publication}
 
 \vspace{8pt}
 
-% Publication details including title, authors, journal, year, etc.
-% Content is formatted as plain text since publications often have
-% complex formatting requirements
-Martin-Robbins, Karen. “‘Something to cherish’: Former Mississauga students launch online yearbook.” \textit{Mississauga News}, July 10, 2020. \href{https://www.mississauga.com/community-story/10071561--something-to-cherish-former-mississauga-students-launch-online-yearbook/}{Link to publication}.
 
-%=======================================================================================
-% TEMPLATE NOTES:
-% - This template uses Jinja2 templating to dynamically populate content from Notion
-% - Only entries with "Show on CV?" = True are included
-% - Content comes from the "For Resume" section of each Notion page
-% - LaTeX special characters are automatically escaped using the latex_escape filter
-% - The template supports different formatting for different section types
-% - Projects section omits organization/role to avoid irrelevant information
-% - All dates are formatted consistently (Month YYYY -- Month YYYY or Present)
-%=======================================================================================
+% Virtrolio
+Martin-Robbins, Karen. “‘Something to cherish’: Former Mississauga students launch online yearbook.” \textit{Mississauga News}, July 10, 2020. \href{https://www.mississauga.com/community-story/10071561--something-to-cherish-former-mississauga-students-launch-online-yearbook/}{Link to publication}.
 
 %----------------------------------------------------------------------------------------
 % END OF DOCUMENT

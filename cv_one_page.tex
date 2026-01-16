@@ -91,20 +91,11 @@
 
 %Setup hyperref package, and colours for links
 \usepackage[unicode, draft=false]{hyperref}
-\definecolor{titlebg}{HTML}{F3F4F6} % light grey background for header
+\definecolor{titlebg}{HTML}{F3F4F6}
 \hypersetup{colorlinks,breaklinks,urlcolor=accent,linkcolor=accent}
-% Removed bibliography functionality
 
 %for social icons
 \usepackage{fontawesome5}
-
-%debug page outer frames
-%\usepackage{showframe}
-
-
-% job listing environments
-
-
 
 %----------------------------------------------------------------------------------------
 %	BEGIN DOCUMENT
@@ -115,12 +106,9 @@
 \pagestyle{empty} 
 
 %----------------------------------------------------------------------------------------
-%	TITLE
+%	TITLE BLOCK
 %----------------------------------------------------------------------------------------
 
-% Personal header with name and contact information
-% This section displays the candidate's name prominently and includes
-% clickable links to professional profiles (GitHub, LinkedIn, email, phone)
 \begingroup\setlength{\fboxsep}{8pt}%
 \hypersetup{urlcolor=accent,linkcolor=accent}%
 \noindent\makebox[\linewidth][l]{%
@@ -157,22 +145,9 @@
 % EXPERIENCE / EXTRACURRICULARS / PROJECTS
 %----------------------------------------------------------------------------------------
 
-% Dynamic sections populated from Notion database via Jinja2 templating
-% These sections are generated automatically from the Notion database entries
-% where "Show on CV?" is set to True. The sections include:
-% - Work Experience: Professional work experience
-% - Leadership and Other Experience: Volunteer work, clubs, activities, leadership roles
-% - Projects: Personal and academic projects
-% 
-% Jinja2 template logic:
-% - Loops through each section type
-% - Filters entries where is_visible is True
-% - Renders each entry with organization, location, dates, and description
-% - Uses different formatting for Projects (no organization/role) vs others
 \section{WORK EXPERIENCE}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+% McMaster iBioMed - Hamilton, ON, Canada - Laboratory Teaching Assistant
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster iBioMed}
@@ -181,15 +156,12 @@
 \end{minipage}
 &     Sep 2020 — Apr 2021, Sep 2023 — Apr 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Promoted to Instructional Teaching Assistant, in charge of supervising 45 students and 2 support assistants on a weekly basis during labs, answering questions about Python programming and Autodesk Inventor
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+% L3Harris WESCAM - Waterdown, ON, Canada - Electro-Optical Engineering Co-Op (Internship)  
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{L3Harris WESCAM}
@@ -198,17 +170,14 @@
 \end{minipage}
 &     May 2022 -- Aug 2023
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Operated \$100K+ sensor, video, vibration, and thermal systems under strict ESD procedures with 0 incidents
   \item Refined and spearheaded various MATLAB tools and GUIs, saving dozens of hours weekly for 10+ engineers by automating image processing, data analysis, device operation, and report generation tasks
   \item Trained 2 new interns to independence in weeks, creating documentation and delegating tasks across 6+ projects
 \end{itemize}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+% McMaster Technology Services - Hamilton, ON, Canada - Project Support Assistant (Internship)
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Technology Services}
@@ -217,18 +186,16 @@
 \end{minipage}
 &     May 2021 -- Aug 2021
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Collaborated in a team of 4 to create a SharePoint site (16k+ unique visitors, 85k+ views) for campus users to learn Microsoft 365 tools, following Design Thinking principles over 13 weeks to accurately meet user needs
 \item Actively voiced the student perspective in staff meetings to highlight relevant concerns and presented regularly to management up to CTO about project progress
 \item Organized dozens of interviews, conducted environmental scans, and analyzed over 150 survey results from campus members to determine user needs and design guidelines
 \end{itemize}
+
 \section{LEADERSHIP AND PROJECTS}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+% McMaster Improv - Hamilton, ON, Canada - Co-President
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Improv}
@@ -237,9 +204,6 @@
 \end{minipage}
 &     May 2022 -- Apr 2025
 \end{tabularx}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
 
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Led teams of 15 through 25+ practices yearly to perform to audiences of 100 and managed teams of 5-8 through 15+ executive meetings, driving >800\% club growth and a ticket sales increase from \$0 to \$1400/yr
@@ -247,6 +211,7 @@
   \item Handled discrimination complaints professionally and sensitively, ensuring a safe and inclusive environment
 \end{itemize}
 
+% Cardiac Catheterization Testing Apparatus (Capstone Project)
 \begin{tabularx}{\linewidth}{@{}X r@{}}
   \begin{minipage}[t]{\linewidth}
     \textbf{McMaster University}
@@ -262,9 +227,6 @@ Designed and iterated on a precisely tuned flow circuit for Boston Scientific to
 % EDUCATION
 %----------------------------------------------------------------------------------------
 
-% Educational background including degrees, institutions, and dates
-% This section is populated from Notion database entries with Type="Education"
-% and includes degree name, institution, location, and graduation dates
 \section{EDUCATION}
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
@@ -272,16 +234,11 @@ Designed and iterated on a precisely tuned flow circuit for Boston Scientific to
 \end{minipage}
 &     Sep 2019 -- Apr 2025
 \end{tabularx}
-% Additional details like GPA, relevant coursework, or achievements
-% Content comes from the "For Resume" section of the education entry
 
 %----------------------------------------------------------------------------------------
 % SKILLS & INTERESTS
 %----------------------------------------------------------------------------------------
 
-% Technical and professional skills organized by category
-% This section is static and manually curated to highlight the most relevant
-% skills for the candidate's target roles. Categories include:
 \section{SKILLS \& INTERESTS}
 \renewcommand{\arraystretch}{1.2} % Increase row height for better readability
 \begin{tabularx}{\linewidth}{@{}l X@{}}

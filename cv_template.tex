@@ -55,56 +55,37 @@
 \usepackage{url}
 \usepackage{parskip} 	
 
-%other packages for formatting
 \RequirePackage{color}
 \RequirePackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage[scale=0.9, top=0.5in,bottom=0.4in]{geometry}
 
-%tabularx environment
 \usepackage{tabularx}
 
-%for lists within experience section
 \usepackage{enumitem}
 
 % centered version of 'X' col. type
 \newcolumntype{C}{>{\centering\arraybackslash}X} 
 
-%to prevent spillover of tabular into next pages
 \usepackage{supertabular}
 \usepackage{tabularx}
 \newlength{\fullcollw}
 \setlength{\fullcollw}{0.47\textwidth}
 
-%custom \section
 \usepackage{titlesec}				
 \usepackage{multicol}
 \usepackage{multirow}
 
-%CV Sections inspired by: 
-%http://stefano.italians.nl/archives/26
-\definecolor{accent}{RGB}{79,133,244} % light blue accent for first name
+\definecolor{accent}{RGB}{79,133,244}
 \titleformat{\section}{\fontsize{10}{12}\selectfont\bfseries\raggedright}{}{0em}{}[\titleline{\color{accent}\titlerule[1.2pt]}]
 \titlespacing{\section}{0pt}{10pt}{10pt}
 
-%for publications (removed biblatex)
-
-%Setup hyperref package, and colours for links
 \usepackage[unicode, draft=false]{hyperref}
-\definecolor{titlebg}{HTML}{F3F4F6} % light grey background for header
+\definecolor{titlebg}{HTML}{F3F4F6}
 \hypersetup{colorlinks,breaklinks,urlcolor=accent,linkcolor=accent}
-% Removed bibliography functionality
 
 %for social icons
 \usepackage{fontawesome5}
-
-%debug page outer frames
-%\usepackage{showframe}
-
-
-% job listing environments
-
-
 
 %----------------------------------------------------------------------------------------
 %	BEGIN DOCUMENT
@@ -115,13 +96,10 @@
 \pagestyle{empty} 
 
 %----------------------------------------------------------------------------------------
-%	TITLE
+%	TITLE BLOCK
 %----------------------------------------------------------------------------------------
 
 {% raw %}
-% Personal header with name and contact information
-% This section displays the candidate's name prominently and includes
-% clickable links to professional profiles (GitHub, LinkedIn, email, phone)
 \begingroup\setlength{\fboxsep}{8pt}%
 \hypersetup{urlcolor=accent,linkcolor=accent}%
 \noindent\makebox[\linewidth][l]{%
@@ -156,31 +134,18 @@
 % EXPERIENCE / EXTRACURRICULARS / PROJECTS
 %----------------------------------------------------------------------------------------
 
-% Dynamic sections populated from Notion database via Jinja2 templating
-% These sections are generated automatically from the Notion database entries
-% where "Show on CV?" is set to True. The sections include:
-% - Work Experience: Professional work experience
-% - Leadership and Other Experience: Volunteer work, clubs, activities, leadership roles
-% - Projects: Personal and academic projects
-% 
-% Jinja2 template logic:
-% - Loops through each section type
-% - Filters entries where is_visible is True
-% - Renders each entry with organization, location, dates, and description
-% - Uses different formatting for Projects (no organization/role) vs others
 {% for sect in ['Work Experience','Leadership and Other Experience','Projects'] %}
 {% set items = cv_data.get(sect, [])|selectattr('is_visible')|list %}
 {% if items|length %}
 \section{ {{- sect | upper | latex_escape -}} }
 {% for item in items %}
+
 {% if sect == 'Projects' %}
-% Projects section: Shows only project name and location (no organization/role)
-% This format is cleaner for projects where the organization field might contain
-% irrelevant role information like "Developer" or "Creator"
+
+% {{ item.name | latex_escape }}
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{ {{- item.name | latex_escape -}} }
-  {% if item.location %} -- {{ item.location | latex_escape }}{% endif %}
 \end{minipage}
 & {% if item.date_display %}
     {{ item.date_display | latex_escape }}
@@ -190,10 +155,10 @@
     {{ (item.end_date or '') | latex_escape }}
   {% endif %}
 \end{tabularx}
+
 {% else %}
-% Work Experience and Leadership and Other Experience: Shows organization, location, and role/title
-% This format works well for traditional work experience and activities
-% where the organization and role are both relevant
+
+% {{ item.organization | latex_escape }}{% if item.location %} - {{ item.location | latex_escape }}{% endif %} - {{ item.name | latex_escape }}
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{ {{- item.organization | latex_escape -}} }
@@ -209,9 +174,7 @@
   {% endif %}
 \end{tabularx}
 {% endif %}
-% Bullet points describing the role/project details
-% Content comes from the "For Resume" section of each Notion page
-% and is pre-processed to convert Notion formatting to LaTeX
+
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   {{ item.body_latex | replace('}{peer-reviewed publication}', '}{\\textcolor{accent}{peer-reviewed publication}}') | safe }}
 \end{itemize}
@@ -223,13 +186,12 @@
 % EDUCATION
 %----------------------------------------------------------------------------------------
 
-% Educational background including degrees, institutions, and dates
-% This section is populated from Notion database entries with Type="Education"
-% and includes degree name, institution, location, and graduation dates
 {% set edu = cv_data.get('Education', [])|selectattr('is_visible')|list %}
 {% if edu|length %}
 \section{EDUCATION}
 {% for item in edu %}
+
+% {{ item.organization | latex_escape }}{% if item.location %} - {{ item.location | latex_escape }}{% endif %} - {{ item.name | latex_escape }}
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
   \textbf{ {{- item.organization | latex_escape -}} }
@@ -244,8 +206,6 @@
     {{ (item.end_date or '') | latex_escape }}
   {% endif %}
 \end{tabularx}
-% Additional details like GPA, relevant coursework, or achievements
-% Content comes from the "For Resume" section of the education entry
 
 {{ item.body_latex | safe }}
 {% endfor %}
@@ -255,9 +215,6 @@
 % SKILLS
 %----------------------------------------------------------------------------------------
 
-% Technical and professional skills organized by category
-% This section is static and manually curated to highlight the most relevant
-% skills for the candidate's target roles. Categories include:
 \section{SKILLS \& INTERESTS}
 \begin{tabularx}{\linewidth}{@{}l X@{}}
   \textbf{Engineering} &
@@ -282,13 +239,12 @@
 % AWARDS
 %----------------------------------------------------------------------------------------
 
-% Recognition, honors, and awards received
-% This section highlights academic achievements, professional recognition,
-% competitions won, or other notable accomplishments
 {% set awards = cv_data.get('Awards', [])|selectattr('is_visible')|list %}
 {% if awards|length %}
 \section{AWARDS}
 {% for item in awards %}
+
+% {{ item.name | latex_escape }}
 \begin{tabularx}{\linewidth}{@{}l X r@{}}
 \textbf{ {{- item.name | latex_escape -}} } & \hfill & {% if item.date_display %}
     {{ item.date_display | latex_escape }}
@@ -297,7 +253,7 @@
   {% else %}
     {{ (item.end_date or '') | latex_escape }}
   {% endif %} \end{tabularx}
-% Additional details about the award, organization, or criteria
+
 {{ item.body_latex | safe }}
 {% if not loop.last %}
 \vspace{6pt}
@@ -310,16 +266,12 @@
 % PUBLICATIONS
 %----------------------------------------------------------------------------------------
 
-% Research papers, articles, or other publications
-% This section is for academic or professional publications
-% and includes paper titles, authors, journals, and publication details
 {% set pubs = cv_data.get('Publications', [])|selectattr('is_visible')|list %}
 {% if pubs|length %}
 \section{PUBLICATIONS}
 {% for item in pubs %}
-% Publication details including title, authors, journal, year, etc.
-% Content is formatted as plain text since publications often have
-% complex formatting requirements
+
+% {{ item.name | latex_escape }}
 {{ item.body_latex | safe }}
 {% if not loop.last %}
 \vspace{8pt}
@@ -327,17 +279,6 @@
 {% endif %}
 {% endfor %}
 {% endif %}
-
-%=======================================================================================
-% TEMPLATE NOTES:
-% - This template uses Jinja2 templating to dynamically populate content from Notion
-% - Only entries with "Show on CV?" = True are included
-% - Content comes from the "For Resume" section of each Notion page
-% - LaTeX special characters are automatically escaped using the latex_escape filter
-% - The template supports different formatting for different section types
-% - Projects section omits organization/role to avoid irrelevant information
-% - All dates are formatted consistently (Month YYYY -- Month YYYY or Present)
-%=======================================================================================
 
 %----------------------------------------------------------------------------------------
 % END OF DOCUMENT
