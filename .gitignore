@@ -4,6 +4,7 @@
 notion_cache.json
 /__pycache__/
 /.build/
+/.vscode/
 
 # Generated LaTeX files (created by GitHub workflow)
 # cv.tex
