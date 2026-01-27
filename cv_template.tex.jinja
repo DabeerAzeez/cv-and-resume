@@ -125,15 +125,9 @@
 \section{SUMMARY OF QUALIFICATIONS}
 
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  % Leader & Project Manager
-  \item Proven leader \& project manager with 3+ years experience driving milestone-based end-to-end delivery across 5+ cross-functional teams of up to 12 by actively managing Waterfall-style project timelines, resolving conflicts, and keeping contributors aligned around shifting priorities using MS Project, Notion, and Gantt charts
-  % Communicator
-  \item Exceptional communicator blending 9+ years of live performance, facilitation with executive-level presentations (up to CTO), strategic networking, sponsorship engagement, resulting in 400\%+ funding growth
-  % Technical Writer
-  \item Accomplished technical writer and self-published author, contributor to 2 academic papers, A+ essays/reports for 10+ undergrad courses, and 250+ pages of technical/onboarding/teaching materials used by 5+ teams
-  % Software & Automation Developer
-  \item Software \& automation developer with 6+ years Python \& 4+ years MATLAB experience building professional automations, data analysis scripts, REST API integrations, data pipelines, desktop/web GUIs, unit testing (PyTest), Git-based workflows, code reviews, and user-focused interface design across >10 academic and industry projects
-  \item Embedded \& electrical systems designer with 4 years hands-on experience designing and debugging analog/digital circuits using professional lab equipment, reading and producing electrical schematics, running circuit simulations, and troubleshooting hardware–software interfaces; earned A+ grades across 6+ undergrad circuit design projects
+{% for item in cv_data.get('Summary', []) %}
+  \item {{ item | safe }}
+{% endfor %}
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
@@ -221,25 +215,16 @@
 % SKILLS
 %----------------------------------------------------------------------------------------
 
+{% set skills = cv_data.get('Skills', [])|selectattr('is_visible')|list %}
+{% if skills %}
 \section{SKILLS \& INTERESTS}
 \begin{tabularx}{\linewidth}{@{}l X@{}}
-  \textbf{Engineering} &
-  \normalsize{Software \& Scripting (Python, C/C++, MATLAB/Simulink, HTML/CSS/JS, Angular, Firebase, Git),
-  Electrical \& Systems Design (PCB Design, Circuit Analysis, Analog \& Digital Electronics, Signal Processing,
-  PID Control, Microcontrollers), Embedded \& Control Systems, Image Processing, GUI Development, Autodesk Inventor} \\
-  
-  \textbf{Business} &
-  \normalsize{Business Analysis (Requirements Gathering, Stakeholder Interviews, Process Mapping),
-  Data Analysis \& Automation (Excel, Power Automate, Zapier, APIs),
-  Executive \& Client Communication, Technical-to-Business Translation,
-  Facilitation \& Instructional Design, Project Planning \& Timeline Mapping, UX Thinking} \\
-  
-  \textbf{Languages} & 
-  \normalsize{English (fluent), French (proficient, DELF B2 88\%), Spanish (intermediate), Tamil (conversational)}\\
-
-  \textbf{Interests} & Self-Published Author, Songwriting, A Cappella, Musical Theatre, Volunteering (500+ hrs, 8 countries)
-
+{% for item in skills %}
+  \textbf{ {{- item.category | safe -}} } &
+  \normalsize{ {{- item.skills | safe -}} } \\
+{% endfor %}
 \end{tabularx}
+{% endif %}
 
 %----------------------------------------------------------------------------------------
 % AWARDS

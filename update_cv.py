@@ -650,18 +650,52 @@ def fetch_notion_data(notion: Client, database_id: str) -> Dict[str, List[Dict[s
             mode = "items" if type_name in TYPES_LONG else "paragraphs"
             body_latex = convert_blocks_to_latex(notion, filtered, mode=mode)
 
-            entry = {
-                "name": name,
-                "organization": org,
-                "location": loc,
-                "type": type_name,
-                "start_date": start_d,
-                "end_date": end_d,
-                "date_display": date_display,
-                "is_visible": True,
-                "body_latex": body_latex,
-            }
-            cv_data.setdefault(type_name, []).append(entry)
+            # Special handling for Skills page
+            if name.lower() == "skills" or type_name.lower() == "skills":
+                skills_data = []
+                table_found = False
+                for block in filtered:
+                    if block.get("type") == "table":
+                        table_found = True
+                        table_rows = list_children(notion, block["id"])
+                        for i, row_block in enumerate(table_rows):
+                            if row_block.get("type") == "table_row":
+                                cells = row_block.get("table_row", {}).get("cells", [])
+                                if len(cells) >= 2:
+                                    # Skip the first row (assumed to be headers)
+                                    if i == 0:
+                                        continue
+                                    category = rt_to_latex(cells[0])
+                                    skills = rt_to_latex(cells[1])
+                                    skills_data.append({"category": category.strip(), "skills": skills.strip(), "is_visible": True})
+                        break  # Assume one table per page
+                if not table_found:
+                    print(f"ERROR: No table found in the resume region of the Skills page '{name}' (ID: {page_id}). Ensure the table is between 'For Resume' and 'Not For Resume' headers. Page URL: https://www.notion.so/{page_id.replace('-', '')}")
+                elif not skills_data:
+                    print(f"WARNING: Table found but no valid rows in Skills page '{name}' (ID: {page_id}). Check for empty cells or headers.")
+                cv_data["Skills"] = skills_data
+            elif name.lower() == "summary of qualifications" or type_name.lower() == "summary of qualifications":
+                summary_items = []
+                for block in filtered:
+                    if block.get("type") == "bulleted_list_item":
+                        text = rt_to_latex(block["bulleted_list_item"]["rich_text"])
+                        summary_items.append(text.strip())
+                if not summary_items:
+                    print(f"WARNING: No bulleted list items found in the resume region of the Summary of Qualifications page '{name}' (ID: {page_id}). Page URL: https://www.notion.so/{page_id.replace('-', '')}")
+                cv_data["Summary"] = summary_items
+            else:
+                entry = {
+                    "name": name,
+                    "organization": org,
+                    "location": loc,
+                    "type": type_name,
+                    "start_date": start_d,
+                    "end_date": end_d,
+                    "date_display": date_display,
+                    "is_visible": True,
+                    "body_latex": body_latex,
+                }
+                cv_data.setdefault(type_name, []).append(entry)
 
         if not resp.get("has_more"):
             break
@@ -680,8 +714,10 @@ def sort_cv_data(cv_data: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dic
     Returns:
         Dict[str, List[Dict[str, Any]]]: CV data with entries sorted by date
     """
-    for section_name, entries in cv_data.items():
-        cv_data[section_name] = sort_entries_by_date(entries)
+    dated_sections = TYPES_LONG | TYPES_SHORT
+    for section_name in dated_sections:
+        if section_name in cv_data:
+            cv_data[section_name] = sort_entries_by_date(cv_data[section_name])
 
     return cv_data
 
