@@ -2,6 +2,8 @@
 
 A LaTeX-based CV generator that automatically pulls data from Notion and generates a professional PDF. Based on the [autoCV template](https://github.com/jitinnair1/autoCV) by [jitinnair1](https://github.com/jitinnair1).
 
+![Architecture Diagram](assets/diagram.png)
+
 ## Features
 
 - **Notion Integration**: Automatically syncs with your Notion database
