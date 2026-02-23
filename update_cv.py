@@ -63,19 +63,20 @@ LATEX_SPECIALS = {
     "^": r"\textasciicircum{}",
 }
 
+
 def latex_escape(text: str) -> str:
     """
     Escape LaTeX special characters conservatively.
-    
+
     This function converts characters that have special meaning in LaTeX
     to their escaped equivalents to prevent LaTeX compilation errors.
-    
+
     Args:
         text (str): The text to escape
-        
+
     Returns:
         str: The text with LaTeX special characters escaped
-        
+
     Example:
         >>> latex_escape("Hello & World")
         "Hello \\& World"
@@ -87,23 +88,25 @@ def latex_escape(text: str) -> str:
         out.append(LATEX_SPECIALS.get(ch, ch))
     return "".join(out)
 
+
 # ------------------------------
 # Notion rich-text → LaTeX
 # ------------------------------
 
+
 def rt_to_latex(rich_text: List[Dict[str, Any]]) -> str:
     """
     Render a list of Notion rich_text objects to LaTeX with annotations preserved.
-    
+
     Converts Notion's rich text format to LaTeX, preserving formatting like
     bold, italic, underline, strikethrough, code, and links.
-    
+
     Args:
         rich_text (List[Dict[str, Any]]): List of Notion rich text objects
-        
+
     Returns:
         str: LaTeX formatted text with annotations
-        
+
     Example:
         >>> rt_to_latex([{"plain_text": "Hello", "annotations": {"bold": True}}])
         "\\textbf{Hello}"
@@ -112,7 +115,7 @@ def rt_to_latex(rich_text: List[Dict[str, Any]]) -> str:
     for rt in rich_text or []:
         t = rt.get("plain_text", "")
         t = latex_escape(t)
-        ann = (rt.get("annotations") or {})
+        ann = rt.get("annotations") or {}
         # link first (outermost), then text styles (nest inside link)
         if rt.get("href"):
             t = f"\\href{{{rt['href']}}}{{{t}}}"
@@ -129,24 +132,26 @@ def rt_to_latex(rich_text: List[Dict[str, Any]]) -> str:
         parts.append(t)
     return "".join(parts)
 
+
 # ------------------------------
 # Notion blocks → LaTeX body
 # ------------------------------
 
+
 def list_children(notion: Client, block_id: str) -> List[Dict[str, Any]]:
     """
     Retrieve all child blocks from a Notion page.
-    
+
     Notion's API paginates results, so this function handles pagination
     to retrieve all child blocks from a given page.
-    
+
     Args:
         notion (Client): Authenticated Notion client
         block_id (str): The ID of the Notion page/block
-        
+
     Returns:
         List[Dict[str, Any]]: List of all child blocks
-        
+
     Raises:
         Exception: If there's an error accessing the Notion API
     """
@@ -164,10 +169,10 @@ def list_children(notion: Client, block_id: str) -> List[Dict[str, Any]]:
 def heading_text(block: Dict[str, Any]) -> str:
     """
     Extract plain text from a heading block.
-    
+
     Args:
         block (Dict[str, Any]): Notion block object
-        
+
     Returns:
         str: Plain text content of the heading
     """
@@ -178,16 +183,16 @@ def heading_text(block: Dict[str, Any]) -> str:
 def filter_for_resume_region(blocks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
     Return only blocks located after H1 'For Resume' and before H1 'Not For Resume'.
-    
+
     This function implements the content filtering system where each Notion page
     can have sections marked for inclusion or exclusion from the CV.
-    
+
     Args:
         blocks (List[Dict[str, Any]]): List of Notion blocks to filter
-        
+
     Returns:
         List[Dict[str, Any]]: Filtered blocks that should appear on the CV
-        
+
     Note:
         - If no 'For Resume' header is found, includes all content
         - If no 'Not For Resume' header is found, includes everything after 'For Resume'
@@ -196,11 +201,15 @@ def filter_for_resume_region(blocks: List[Dict[str, Any]]) -> List[Dict[str, Any
     in_resume = True  # Start with True - include all content by default
     found_for_resume = False
     filtered: List[Dict[str, Any]] = []
-    
+
     for b in blocks:
         tp = b.get("type")
         if tp == "heading_1":
-            text_plain = (b[tp].get("rich_text", [{}])[0].get("plain_text", "").strip() if b[tp].get("rich_text") else "")
+            text_plain = (
+                b[tp].get("rich_text", [{}])[0].get("plain_text", "").strip()
+                if b[tp].get("rich_text")
+                else ""
+            )
             if text_plain.lower() == "for resume":
                 in_resume = True
                 found_for_resume = True
@@ -208,30 +217,32 @@ def filter_for_resume_region(blocks: List[Dict[str, Any]]) -> List[Dict[str, Any
             if text_plain.lower() == "not for resume":
                 in_resume = False
                 break  # everything after is ignored
-        
+
         # Include content if:
         # 1. We never found a "For Resume" header (include all content), OR
         # 2. We found a "For Resume" header and we're currently in the resume section
         if not found_for_resume or in_resume:
             filtered.append(b)
-    
+
     return filtered
 
 
-def _render_list_block_item(notion: Client, block: Dict[str, Any], list_type: str, mode: str, level: int) -> str:
+def _render_list_block_item(
+    notion: Client, block: Dict[str, Any], list_type: str, mode: str, level: int
+) -> str:
     """
     Render a single list item block to LaTeX.
-    
+
     Handles both bulleted and numbered list items, including nested lists
     and mixed content within list items.
-    
+
     Args:
         notion (Client): Authenticated Notion client
         block (Dict[str, Any]): The list item block to render
         list_type (str): Type of list ('bulleted_list_item' or 'numbered_list_item')
         mode (str): Rendering mode ('items' or 'paragraphs')
         level (int): Nesting level for indentation
-        
+
     Returns:
         str: LaTeX formatted list item
     """
@@ -243,19 +254,27 @@ def _render_list_block_item(notion: Client, block: Dict[str, Any], list_type: st
         children = list_children(notion, block["id"])
         if children:
             # Determine child list type by inspecting first child that is a list item
-            child_items = [c for c in children if c.get("type") in ("bulleted_list_item", "numbered_list_item")]
+            child_items = [
+                c
+                for c in children
+                if c.get("type") in ("bulleted_list_item", "numbered_list_item")
+            ]
             if child_items:
                 lt = child_items[0]["type"]
                 env = "itemize" if lt == "bulleted_list_item" else "enumerate"
                 inner = []
                 inner.append(f"\\begin{{{env}}}")
                 for c in child_items:
-                    inner.append(_render_list_block_item(notion, c, c["type"], mode, level + 1))
+                    inner.append(
+                        _render_list_block_item(notion, c, c["type"], mode, level + 1)
+                    )
                 inner.append(f"\\end{{{env}}}")
                 body += "\n" + "\n".join(inner)
             else:
                 # Non-list children under a list item → render as paragraph block(s)
-                para = convert_blocks_to_latex(notion, children, mode=("paragraphs" if mode == "items" else mode))
+                para = convert_blocks_to_latex(
+                    notion, children, mode=("paragraphs" if mode == "items" else mode)
+                )
                 if para.strip():
                     if mode == "items":
                         body += "\n" + para
@@ -264,24 +283,26 @@ def _render_list_block_item(notion: Client, block: Dict[str, Any], list_type: st
     return body
 
 
-def convert_blocks_to_latex(notion: Client, blocks: List[Dict[str, Any]], mode: str) -> str:
+def convert_blocks_to_latex(
+    notion: Client, blocks: List[Dict[str, Any]], mode: str
+) -> str:
     """
     Convert Notion blocks into LaTeX.
-    
+
     This is the main function for converting Notion content to LaTeX format.
     It handles various block types including paragraphs, lists, quotes, code,
     and equations.
-    
+
     Args:
         notion (Client): Authenticated Notion client
         blocks (List[Dict[str, Any]]): List of Notion blocks to convert
         mode (str): Rendering mode
             - 'items' → produce top-level "\item ..." lines only (for joblong environment)
             - 'paragraphs' → produce paragraphs; lists become full itemize/enumerate environments
-            
+
     Returns:
         str: LaTeX formatted content
-        
+
     Note:
         This function processes blocks sequentially and handles list runs
         (consecutive list items) as single environments for better formatting.
@@ -325,12 +346,20 @@ def convert_blocks_to_latex(notion: Client, blocks: List[Dict[str, Any]], mode: 
             if mode == "items":
                 # Flatten at top-level as \item ...; keep nested children as nested lists
                 for item in run:
-                    out.append(_render_list_block_item(notion, item, run_type, mode="items", level=0))
+                    out.append(
+                        _render_list_block_item(
+                            notion, item, run_type, mode="items", level=0
+                        )
+                    )
             else:
                 env = "itemize" if run_type == "bulleted_list_item" else "enumerate"
                 out.append(f"\\begin{{{env}}}")
                 for item in run:
-                    out.append(_render_list_block_item(notion, item, run_type, mode="paragraphs", level=0))
+                    out.append(
+                        _render_list_block_item(
+                            notion, item, run_type, mode="paragraphs", level=0
+                        )
+                    )
                 out.append(f"\\end{{{env}}}")
             i = j
             continue
@@ -345,25 +374,40 @@ def convert_blocks_to_latex(notion: Client, blocks: List[Dict[str, Any]], mode: 
 
     return "\n".join(out)
 
+
 # ------------------------------
 # Database → cv_data
 # ------------------------------
 
-MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+MONTHS = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+]
+
 
 def fmt_date(d: Optional[str]) -> Optional[str]:
     """
     Format a date string to a readable format.
-    
+
     Converts Notion date strings (ISO format) to "Month YYYY" format
     for display in the CV.
-    
+
     Args:
         d (Optional[str]): Date string from Notion (ISO format or YYYY-MM-DD)
-        
+
     Returns:
         Optional[str]: Formatted date string or original string if parsing fails
-        
+
     Example:
         >>> fmt_date("2023-06-15")
         "Jun 2023"
@@ -382,6 +426,7 @@ def fmt_date(d: Optional[str]) -> Optional[str]:
     except Exception:
         return d  # fallback as-is
 
+
 TYPES_LONG = {"Work Experience", "Leadership and Other Experience", "Projects"}
 TYPES_SHORT = {"Education", "Awards", "Publications"}
 
@@ -389,17 +434,17 @@ TYPES_SHORT = {"Education", "Awards", "Publications"}
 def get_prop_text(props: Dict[str, Any], name: str) -> str:
     """
     Extract text content from a Notion property.
-    
+
     Handles different Notion property types and extracts the plain text
     content for use in the CV.
-    
+
     Args:
         props (Dict[str, Any]): Notion page properties
         name (str): Name of the property to extract
-        
+
     Returns:
         str: Plain text content of the property
-        
+
     Note:
         Supports title, rich_text, select, and checkbox property types.
     """
@@ -417,15 +462,17 @@ def get_prop_text(props: Dict[str, Any], name: str) -> str:
     return ""
 
 
-def get_date_range(props: Dict[str, Any]) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+def get_date_range(
+    props: Dict[str, Any],
+) -> Tuple[Optional[str], Optional[str], Optional[str]]:
     """
     Extract start and end dates from Notion properties.
-    
+
     Supports both regular date fields and date override field for complex date ranges.
-    
+
     Args:
         props (Dict[str, Any]): Notion page properties
-        
+
     Returns:
         Tuple[Optional[str], Optional[str], Optional[str]]: (start_date, end_date, date_display) formatted strings
     """
@@ -435,70 +482,85 @@ def get_date_range(props: Dict[str, Any]) -> Tuple[Optional[str], Optional[str],
         if date_override.get("type") == "text":
             override_text = date_override.get("text", {}).get("content", "")
         else:  # rich_text
-            override_text = "".join([text.get("plain_text", "") for text in date_override.get("rich_text", [])])
-        
+            override_text = "".join(
+                [
+                    text.get("plain_text", "")
+                    for text in date_override.get("rich_text", [])
+                ]
+            )
+
         if override_text.strip():
             # Parse date override format: "Jan 2020 -- Dec 2021, Jan 2023 -- Present"
             # or "Jan 2020 -- Dec 2021" or "Jan 2020 -- Present"
             start_d, end_d = parse_date_override(override_text.strip())
             return start_d, end_d, override_text.strip()
-    
+
     # Fall back to regular date fields
     sd = props.get("Start Date")
     ed = props.get("End Date")
-    s = fmt_date(sd.get("date", {}).get("start")) if sd and sd.get("type") == "date" and sd.get("date") else None
-    e = fmt_date(ed.get("date", {}).get("start")) if ed and ed.get("type") == "date" and ed.get("date") else None
+    s = (
+        fmt_date(sd.get("date", {}).get("start"))
+        if sd and sd.get("type") == "date" and sd.get("date")
+        else None
+    )
+    e = (
+        fmt_date(ed.get("date", {}).get("start"))
+        if ed and ed.get("type") == "date" and ed.get("date")
+        else None
+    )
     return s, e, None
 
 
 def parse_date_override(override_text: str) -> Tuple[Optional[str], Optional[str]]:
     """
     Parse date override text into start and end dates.
-    
+
     Supports formats like:
     - "Jan 2020 -- Dec 2021, Jan 2023 -- Present"
-    - "Jan 2020 -- Dec 2021" 
+    - "Jan 2020 -- Dec 2021"
     - "Jan 2020 -- Present"
     - "Jan 2020 -- Dec 2021, Jan 2023 -- Dec 2024"
-    
+
     Args:
         override_text (str): Date override text from Notion
-        
+
     Returns:
         Tuple[Optional[str], Optional[str]]: (start_date, end_date) formatted strings
     """
     # Normalize different dash types to standard format
     normalized_text = override_text.replace("—", "--").replace("–", "--")
-    
+
     # Handle multiple date ranges (e.g., "Jan 2020 -- Dec 2021, Jan 2023 -- Present")
     if "," in normalized_text:
         # For multiple ranges, use the earliest start and latest end
         ranges = [r.strip() for r in normalized_text.split(",")]
         start_dates = []
         end_dates = []
-        
+
         for range_str in ranges:
             if " -- " in range_str:
                 start_part, end_part = range_str.split(" -- ", 1)
                 start_dates.append(start_part.strip())
                 end_dates.append(end_part.strip())
-        
+
         if start_dates and end_dates:
             # Find earliest start date
             earliest_start = min(start_dates, key=lambda x: parse_date_for_sorting(x))
             # Find latest end date (excluding "Present")
             end_dates_no_present = [d for d in end_dates if d.lower() != "present"]
             if end_dates_no_present:
-                latest_end = max(end_dates_no_present, key=lambda x: parse_date_for_sorting(x))
+                latest_end = max(
+                    end_dates_no_present, key=lambda x: parse_date_for_sorting(x)
+                )
             else:
                 latest_end = "Present"
             return earliest_start, latest_end
-    
+
     # Handle single date range
     if " -- " in normalized_text:
         start_part, end_part = normalized_text.split(" -- ", 1)
         return start_part.strip(), end_part.strip()
-    
+
     # If no range separator, treat as start date only
     return normalized_text.strip(), None
 
@@ -506,16 +568,16 @@ def parse_date_override(override_text: str) -> Tuple[Optional[str], Optional[str
 def parse_date_for_sorting(date_str: str) -> Tuple[int, int]:
     """
     Parse a date string for sorting purposes.
-    
+
     Args:
         date_str (str): Date string like "Jan 2020" or "Present"
-        
+
     Returns:
         Tuple[int, int]: (year, month) for sorting
     """
     if not date_str or date_str.lower() == "present":
         return (9999, 12)  # Put "Present" at the end
-    
+
     try:
         parts = date_str.split()
         if len(parts) == 2:
@@ -525,96 +587,101 @@ def parse_date_for_sorting(date_str: str) -> Tuple[int, int]:
             return (year, month)
     except (ValueError, IndexError):
         pass
-    
+
     return (0, 0)  # Fallback for unparseable dates
 
 
 def sort_entries_by_date(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
     Sort entries by date (newest first).
-    
+
     Uses end_date if available, otherwise start_date. For date overrides,
     extracts the latest end date from the override string.
-    
+
     Args:
         entries (List[Dict[str, Any]]): List of CV entries to sort
-        
+
     Returns:
         List[Dict[str, Any]]: Sorted entries with newest first
     """
+
     def get_sort_date(entry: Dict[str, Any]) -> Tuple[int, int]:
         # For date overrides, extract the latest end date from the override string
         if entry.get("date_display"):
             return get_latest_end_date_from_override(entry["date_display"])
-        
+
         # Use end_date if available, otherwise start_date
         date_str = entry.get("end_date") or entry.get("start_date")
         if not date_str:
             return (0, 0)  # Put entries without dates at the end
-        
+
         return parse_date_for_sorting(date_str)
-    
+
     return sorted(entries, key=get_sort_date, reverse=True)
 
 
 def get_latest_end_date_from_override(override_text: str) -> Tuple[int, int]:
     """
     Extract the latest end date from a date override string for sorting.
-    
+
     Args:
         override_text (str): Date override string like "Jan 2020 -- Dec 2021, Jan 2023 -- Present"
-        
+
     Returns:
         Tuple[int, int]: (year, month) for sorting
     """
     if not override_text:
         return (0, 0)
-    
+
     # Normalize different dash types to standard format
     normalized_text = override_text.replace("—", "--").replace("–", "--")
-    
+
     # Handle multiple date ranges (e.g., "Jan 2020 -- Dec 2021, Jan 2023 -- Present")
     if "," in normalized_text:
         ranges = [r.strip() for r in normalized_text.split(",")]
         end_dates = []
-        
+
         for range_str in ranges:
             if " -- " in range_str:
                 start_part, end_part = range_str.split(" -- ", 1)
                 end_dates.append(end_part.strip())
-        
+
         if end_dates:
             # Find the latest end date (excluding "Present")
             end_dates_no_present = [d for d in end_dates if d.lower() != "present"]
             if end_dates_no_present:
-                latest_end = max(end_dates_no_present, key=lambda x: parse_date_for_sorting(x))
+                latest_end = max(
+                    end_dates_no_present, key=lambda x: parse_date_for_sorting(x)
+                )
                 return parse_date_for_sorting(latest_end)
             else:
                 return (9999, 12)  # All ranges end with "Present"
-    
+
     # Handle single date range
     if " -- " in normalized_text:
         start_part, end_part = normalized_text.split(" -- ", 1)
         return parse_date_for_sorting(end_part.strip())
-    
+
     # If no range separator, treat as start date only
     return parse_date_for_sorting(normalized_text.strip())
 
 
-def fetch_notion_data(notion: Client, database_id: str) -> Dict[str, List[Dict[str, Any]]]:
+def fetch_notion_data(
+    notion: Client, database_id: str
+) -> Dict[str, List[Dict[str, Any]]]:
     """
     Fetch raw CV data from Notion database without sorting.
-    
+
     Fetches all entries from the Notion database where "Show on CV?" is True,
     processes the content, and organizes it by section type. Does NOT sort entries.
-    
+
     Args:
         notion (Client): Authenticated Notion client
         database_id (str): ID of the Notion database
-        
+
     Returns:
         Dict[str, List[Dict[str, Any]]]: Raw CV data organized by section type (unsorted)
-        
+
     Note:
         This function handles pagination to retrieve all database entries
         and processes each entry's content from Notion blocks.
@@ -637,7 +704,7 @@ def fetch_notion_data(notion: Client, database_id: str) -> Dict[str, List[Dict[s
         for page in resp.get("results", []):
             props = page.get("properties", {})
             page_id = page["id"]
-            
+
             type_name = get_prop_text(props, "Type") or "Other"
             name = get_prop_text(props, "Title") or ""
             org = get_prop_text(props, "Organization")
@@ -667,21 +734,36 @@ def fetch_notion_data(notion: Client, database_id: str) -> Dict[str, List[Dict[s
                                         continue
                                     category = rt_to_latex(cells[0])
                                     skills = rt_to_latex(cells[1])
-                                    skills_data.append({"category": category.strip(), "skills": skills.strip(), "is_visible": True})
+                                    skills_data.append(
+                                        {
+                                            "category": category.strip(),
+                                            "skills": skills.strip(),
+                                            "is_visible": True,
+                                        }
+                                    )
                         break  # Assume one table per page
                 if not table_found:
-                    print(f"ERROR: No table found in the resume region of the Skills page '{name}' (ID: {page_id}). Ensure the table is between 'For Resume' and 'Not For Resume' headers. Page URL: https://www.notion.so/{page_id.replace('-', '')}")
+                    print(
+                        f"ERROR: No table found in the resume region of the Skills page '{name}' (ID: {page_id}). Ensure the table is between 'For Resume' and 'Not For Resume' headers. Page URL: https://www.notion.so/{page_id.replace('-', '')}"
+                    )
                 elif not skills_data:
-                    print(f"WARNING: Table found but no valid rows in Skills page '{name}' (ID: {page_id}). Check for empty cells or headers.")
+                    print(
+                        f"WARNING: Table found but no valid rows in Skills page '{name}' (ID: {page_id}). Check for empty cells or headers."
+                    )
                 cv_data["Skills"] = skills_data
-            elif name.lower() == "summary of qualifications" or type_name.lower() == "summary of qualifications":
+            elif (
+                name.lower() == "summary of qualifications"
+                or type_name.lower() == "summary of qualifications"
+            ):
                 summary_items = []
                 for block in filtered:
                     if block.get("type") == "bulleted_list_item":
                         text = rt_to_latex(block["bulleted_list_item"]["rich_text"])
                         summary_items.append(text.strip())
                 if not summary_items:
-                    print(f"WARNING: No bulleted list items found in the resume region of the Summary of Qualifications page '{name}' (ID: {page_id}). Page URL: https://www.notion.so/{page_id.replace('-', '')}")
+                    print(
+                        f"WARNING: No bulleted list items found in the resume region of the Summary of Qualifications page '{name}' (ID: {page_id}). Page URL: https://www.notion.so/{page_id.replace('-', '')}"
+                    )
                 cv_data["Summary"] = summary_items
             else:
                 entry = {
@@ -704,13 +786,15 @@ def fetch_notion_data(notion: Client, database_id: str) -> Dict[str, List[Dict[s
     return cv_data
 
 
-def sort_cv_data(cv_data: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dict[str, Any]]]:
+def sort_cv_data(
+    cv_data: Dict[str, List[Dict[str, Any]]],
+) -> Dict[str, List[Dict[str, Any]]]:
     """
     Sort CV data by date (newest first) within each section.
-    
+
     Args:
         cv_data (Dict[str, List[Dict[str, Any]]]): Raw CV data from Notion
-        
+
     Returns:
         Dict[str, List[Dict[str, Any]]]: CV data with entries sorted by date
     """
@@ -721,59 +805,68 @@ def sort_cv_data(cv_data: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dic
 
     return cv_data
 
+
 # ------------------------------
 # Render with Jinja2
 # ------------------------------
 
+
 def render_tex(cv_data: Dict[str, Any], template_file: str, out_file: str) -> None:
     """
     Render the CV data using Jinja2 template.
-    
+
     Loads the LaTeX template, processes it with the CV data, and writes
     the result to the output file.
-    
+
     Args:
         cv_data (Dict[str, Any]): Processed CV data from Notion
         template_file (str): Path to the Jinja2 template file
         out_file (str): Path to the output LaTeX file
-        
+
     Raises:
         Exception: If there's an error reading the template or writing the output
     """
-    env = Environment(loader=FileSystemLoader("."), autoescape=False, trim_blocks=True, lstrip_blocks=True)
+    env = Environment(
+        loader=FileSystemLoader("."),
+        autoescape=False,
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
     env.filters["latex_escape"] = latex_escape
     tmpl = env.get_template(template_file)
     tex = tmpl.render(cv_data=cv_data)
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(tex)
 
+
 # ------------------------------
 # Main
 # ------------------------------
 
+
 def main(argv: List[str]) -> int:
     """
     Main entry point for the CV generator.
-    
+
     Handles command line arguments, loads configuration, manages caching,
     and orchestrates the CV generation process.
-    
+
     Args:
         argv (List[str]): Command line arguments
-        
+
     Returns:
         int: Exit code (0 for success, non-zero for error)
-        
+
     Environment Variables:
         NOTION_TOKEN: Required. Your Notion integration token
         DATA_SOURCE_ID: Required. The ID of your Notion database
         TEMPLATE_FILE: Optional. Template file (default: cv_template.tex.jinja)
         OUT_FILE: Optional. Output file (default: cv.tex)
-        
+
     Command Line Options:
         --refresh, -r: Force refresh of cached data from Notion
         --sort-only, -s: Only sort cached data, don't fetch from Notion
-        
+
     Note:
         The function implements a caching system to reduce API calls.
         Cache expires after 1 hour and can be refreshed with --refresh flag.
@@ -782,26 +875,32 @@ def main(argv: List[str]) -> int:
     notion_token = os.getenv("NOTION_TOKEN")
     database_id = os.getenv("DATA_SOURCE_ID")
     template_file = os.getenv("TEMPLATE_FILE", "cv_template.tex.jinja")
-    
+
     out_file = os.getenv("OUT_FILE", "cv.tex")
     cache_file = "notion_cache.json"
-    
+
     # Check for command line flags
     force_refresh = "--refresh" in argv or "-r" in argv
     sort_only = "--sort-only" in argv or "-s" in argv
 
     if not notion_token or not database_id:
-        print("ERROR: NOTION_TOKEN and DATA_SOURCE_ID must be set in .env", file=sys.stderr)
+        print(
+            "ERROR: NOTION_TOKEN and DATA_SOURCE_ID must be set in .env",
+            file=sys.stderr,
+        )
         return 2
 
     # Handle different modes
     if sort_only:
         # Sort-only mode: load from cache and sort, don't fetch from Notion
         if not os.path.exists(cache_file):
-            print("ERROR: No cache file found. Use --refresh to fetch data from Notion first.", file=sys.stderr)
+            print(
+                "ERROR: No cache file found. Use --refresh to fetch data from Notion first.",
+                file=sys.stderr,
+            )
             return 3
         print("Sort-only mode: Loading data from cache…")
-        with open(cache_file, 'r', encoding='utf-8') as f:
+        with open(cache_file, "r", encoding="utf-8") as f:
             cv_data = json.load(f)
     else:
         # Normal mode: check cache or fetch from Notion
@@ -811,7 +910,7 @@ def main(argv: List[str]) -> int:
                 cache_age = time.time() - os.path.getmtime(cache_file)
                 if cache_age < 3600:  # 1 hour
                     print("Loading data from cache…")
-                    with open(cache_file, 'r', encoding='utf-8') as f:
+                    with open(cache_file, "r", encoding="utf-8") as f:
                         cv_data = json.load(f)
                     print("Using cached data (less than 1 hour old)")
                 else:
@@ -825,10 +924,10 @@ def main(argv: List[str]) -> int:
             notion = Client(auth=notion_token)
             print("Fetching data from Notion…")
             cv_data = fetch_notion_data(notion, database_id)
-            
+
             # Save raw data to cache (unsorted)
             print("Saving data to cache…")
-            with open(cache_file, 'w', encoding='utf-8') as f:
+            with open(cache_file, "w", encoding="utf-8") as f:
                 json.dump(cv_data, f, indent=2, ensure_ascii=False)
 
     # Sort the data (whether from cache or fresh fetch)
