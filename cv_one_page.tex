@@ -1,43 +1,20 @@
 %-----------------------------------------------------------------------------------------------------------------------------------------------%
 %	Based on original work by Jitin Nair (2021) - MIT License
 %	Significantly modified and customized by Dabeer Ahmad Abdul Azeez (2024)
-%
-%	Original MIT License applies to the base template:
-%	Permission is hereby granted, free of charge, to any person obtaining a copy
-%	of this software and associated documentation files (the "Software"), to deal
-%	in the Software without restriction, including without limitation the rights
-%	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-%	copies of the Software, and to permit persons to whom the Software is
-%	furnished to do so, subject to the following conditions:
-%	
-%	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-%	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-%	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-%
-%	Modifications include:
-%	- Jinja2 template integration for dynamic content generation
-%	- Customized Skills section with categorized structure
-%	- Modified Projects section formatting
-%	- Integration with Notion API for automated CV updates
-%	- Enhanced LaTeX structure for better content organization
-%
 %-----------------------------------------------------------------------------------------------------------------------------------------------%
 
 %----------------------------------------------------------------------------------------
 %	DOCUMENT DEFINITION
 %----------------------------------------------------------------------------------------
 
-% Magic comment to force xelatex compilation
 %!TEX program = xelatex
 
-% article class because we want to fully customize the page and not use a cv template
 \documentclass[a4paper,10pt]{article}
 
 %----------------------------------------------------------------------------------------
 %	FONT
 %----------------------------------------------------------------------------------------
 
-% Use Open Sans TTF font directly
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
 \setmainfont{OpenSans}[
@@ -55,46 +32,33 @@
 \usepackage{url}
 \usepackage{parskip} 	
 
-%other packages for formatting
 \RequirePackage{color}
 \RequirePackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage[scale=0.9, top=0.3in,bottom=0.3in]{geometry}
 
-%tabularx environment
 \usepackage{tabularx}
-
-%for lists within experience section
 \usepackage{enumitem}
 
-% centered version of 'X' col. type
 \newcolumntype{C}{>{\centering\arraybackslash}X} 
 
-%to prevent spillover of tabular into next pages
 \usepackage{supertabular}
 \usepackage{tabularx}
 \newlength{\fullcollw}
 \setlength{\fullcollw}{0.47\textwidth}
 
-%custom \section
 \usepackage{titlesec}				
 \usepackage{multicol}
 \usepackage{multirow}
 
-%CV Sections inspired by: 
-%http://stefano.italians.nl/archives/26
 \definecolor{accent}{RGB}{79,133,244} % light blue accent for first name
 \titleformat{\section}{\fontsize{10}{12}\selectfont\bfseries\raggedright}{}{0em}{}[\titleline{\color{accent}\titlerule[1.2pt]}]
-\titlespacing{\section}{0pt}{10pt}{10pt}
+\titlespacing{\section}{0pt}{8pt}{8pt}
 
-%for publications (removed biblatex)us
-
-%Setup hyperref package, and colours for links
 \usepackage[unicode, draft=false]{hyperref}
 \definecolor{titlebg}{HTML}{F3F4F6}
 \hypersetup{colorlinks,breaklinks,urlcolor=accent,linkcolor=accent}
 
-%for social icons
 \usepackage{fontawesome5}
 
 %----------------------------------------------------------------------------------------
@@ -102,7 +66,6 @@
 %----------------------------------------------------------------------------------------
 \begin{document}
 
-% non-numbered pages
 \pagestyle{empty} 
 
 %----------------------------------------------------------------------------------------
@@ -130,15 +93,12 @@
 % HIGHLIGHT REEL
 %----------------------------------------------------------------------------------------
 
-% Professional highlight reel highlighting key qualifications and value proposition
-% This is a static section that provides a high-level overview of the candidate's
-% background, skills, and career focus without being tied to specific experiences
-\section{SUMMARY OF QUALIFICATIONS}
+\section{[TARGET ROLE / POSITION TITLE] SUMMARY}
 
-\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Proven empathetic leader with 3+ years of experience driving on-time delivery across 5+ cross-functional teams (including biomedical projects) by actively managing timelines, optimizing budgets, resolving conflicts, and keeping contributors aligned around shifting priorities using MS Project, Notion, and Excel Gantt charts
-  \item Exceptional communicator blending 9+ years of live performance, facilitation with executive-level presentations (up to CTO), strategic networking, and sponsorship engagement, resulting in 400\%+ funding growth
-  \item Accomplished technical writer and self-published author, contributor to 2 academic papers, A+ essays/reports for 10+ undergrad courses, and 250+ pages of technical/onboarding/teaching materials used by 5+ teams
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=2pt,label=--]
+  \item Enterprise GenAI \& Operations Specialist experienced in designing, testing, and driving firm-wide adoption of AI platforms, LLM tools, and Microsoft Copilot Agents across business units
+  \item Proven educator and communicator, having led bilingual AI enablement workshops for 750+ attendees, produced 250+ pages of training documentation, and facilitated executive presentations up to CTO level
+  \item Agile process optimizer skilled at identifying high-value AI use cases across business functions, accelerating workflow speeds up to 95\% while establishing responsible AI practices and review controls
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
@@ -147,6 +107,23 @@
 
 \section{WORK EXPERIENCE}
 
+% Siemens Canada - Oakville, ON, Canada - GenAI Enablement & Adoption Specialist
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\begin{minipage}[t]{\linewidth}
+  \textbf{Siemens Canada}
+ -- Oakville, ON, Canada \\
+  \textbf{GenAI Enablement \& Adoption Specialist}
+\end{minipage}
+&     May 2026 -- Sep 2026
+\end{tabularx}
+
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  \item Accelerated presentation creation times by up to 95\% (reducing generation time from 1 day to 15–30 minutes) by designing a custom slide-building AI framework using GitHub Copilot, PowerPoint, modular skill repositories, and automated layout and image generation
+  \item Drove enterprise AI literacy across 750+ total attendees by co-leading monthly bilingual (English/French) community calls and hands-on enablement workshops for Siemens Canada employees
+  \item Streamlined workflows for dozens of stakeholders across HR, Engineering, Sales, and Health \& Safety by translating cross-departmental business needs into 10+ tailored AI use cases
+  \item Accelerated AI adoption across business units by engineering custom Microsoft Copilot Agents and enterprise GPT models, conducting iterative prompt design, and managing end-to-end technical handoffs
+\end{itemize}
+
 % McMaster iBioMed - Hamilton, ON, Canada - Laboratory Teaching Assistant
 \begin{tabularx}{\linewidth}{@{}X r@{}}
 \begin{minipage}[t]{\linewidth}
@@ -154,27 +131,11 @@
  -- Hamilton, ON, Canada \\
   \textbf{Laboratory Teaching Assistant}
 \end{minipage}
-&     Sep 2020 — Apr 2021, Sep 2023 — Apr 2025
+&     Sep 2020 -- Apr 2021, Sep 2023 -- Apr 2025
 \end{tabularx}
 
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Promoted to Instructional Teaching Assistant, in charge of supervising 45 students and 2 support assistants on a weekly basis during labs, answering questions about Python programming and CAD (Autodesk Inventor)
-\end{itemize}
-
-% L3Harris WESCAM - Waterdown, ON, Canada - Electro-Optical Engineering Co-Op (Internship)  
-\begin{tabularx}{\linewidth}{@{}X r@{}}
-\begin{minipage}[t]{\linewidth}
-  \textbf{L3Harris WESCAM}
- -- Waterdown, ON, Canada \\
-  \textbf{Electro-Optical Engineering Co-Op (Internship)  }
-\end{minipage}
-&     May 2022 -- Aug 2023
-\end{tabularx}
-
-\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Operated \$100K+ sensor, video, vibration, and thermal systems under strict ESD procedures with 0 incidents
-  \item Refined and spearheaded various MATLAB tools and GUIs, saving dozens of hours weekly for 10+ engineers by automating image processing, data analysis, device operation, and report generation tasks
-  \item Trained 2 new interns to independence in weeks, creating documentation and delegating tasks across 6+ projects
+  \item Promoted to Instructional Teaching Assistant, in charge of supervising 45 students and 2 support assistants on a weekly basis during labs, answering questions about Python programming and Autodesk Inventor
 \end{itemize}
 
 % McMaster Technology Services - Hamilton, ON, Canada - Project Support Assistant (Internship)
@@ -182,15 +143,14 @@
 \begin{minipage}[t]{\linewidth}
   \textbf{McMaster Technology Services}
  -- Hamilton, ON, Canada \\
-  \textbf{Project Support Assistant (Junior Business Analyst Intern)}
+  \textbf{Junior Business Analyst Intern}
 \end{minipage}
 &     May 2021 -- Aug 2021
 \end{tabularx}
 
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-  \item Collaborated in a team of 4 to create a SharePoint site (16k+ unique visitors, 85k+ views) for campus users to learn Microsoft 365 tools, following Design Thinking principles over 13 weeks to accurately meet user needs
-\item Actively voiced the student perspective in staff meetings to highlight relevant concerns and presented regularly to management up to CTO about project progress
-\item Organized dozens of interviews, conducted environmental scans, and analyzed over 150 survey results from campus members to determine user needs and design guidelines
+  \item Co-created a campus-wide SharePoint learning portal (16k+ unique visitors, 85k+ views) to drive Microsoft 365 tool enablement using Design Thinking principles
+  \item Elicited user requirements by conducting 15+ stakeholder interviews, analyzing 150+ survey responses, and presenting progress to executive leadership up to CTO
 \end{itemize}
 
 \section{LEADERSHIP AND PROJECTS}
@@ -208,20 +168,19 @@
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
   \item Led teams of 15 through 25+ practices yearly to perform to audiences of 100 and managed teams of 5-8 through 15+ executive meetings, driving >800\% club growth and a ticket sales increase from \$0 to \$1400/yr
   \item Mentored new executives and organized 100+ pages of documentation to ensure smooth leadership transitions
-  \item Handled discrimination complaints professionally and sensitively, ensuring a safe and inclusive environment
 \end{itemize}
 
-% Cardiac Catheterization Testing Apparatus (Capstone Project)
+% Automated Resume Management Pipeline
 \begin{tabularx}{\linewidth}{@{}X r@{}}
-  \begin{minipage}[t]{\linewidth}
-    \textbf{McMaster University}
- -- Hamilton, ON, Canada \\
-    \textbf{Cardiac Catheterization Testing Apparatus (Capstone Project)}
-  \end{minipage}
-  &     Sep 2024 -- Apr 2025
-  \end{tabularx}
+\begin{minipage}[t]{\linewidth}
+  \textbf{Automated Resume Management Pipeline}
+\end{minipage}
+&     Sep 2025 -- Oct 2025
+\end{tabularx}
 
-Designed and iterated on a precisely tuned flow circuit for Boston Scientific to test their cardiac catheter devices, providing a cost-effective and ethical alternative to animal testing. Independently developed a MATLAB GUI for pump control and data monitoring, leveraging MS Project to manage a team of 5 over 8 months within a \$1000 budget
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+  \item Saved dozens of hours and ensured consistent formatting across multiple platforms by building a 3-minute resume pipeline using Notion API, Python, Jinja2-generated LaTeX templates, Cursor, and GitHub Actions workflows
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 % EDUCATION
@@ -242,7 +201,7 @@ Designed and iterated on a precisely tuned flow circuit for Boston Scientific to
 \section{SKILLS \& INTERESTS}
 \renewcommand{\arraystretch}{1.2} % Increase row height for better readability
 \begin{tabularx}{\linewidth}{@{}l X@{}}
-\textbf{Technical} & \normalsize{Project Management (MS Project, Excel Gantt Charts), CAD, Schedule Tracking, Budget Tracking, Data Analysis (Excel, Python), Process Documentation, Stakeholder Management, Vendor Coordination, Technical Writing, Procurement Support, Risk Tracking, Quality Assurance, Automation (Python, APIs)}\\
+\textbf{Technical} & \normalsize{Generative AI Systems \& Frameworks, Prompt Engineering, Agentic Code Development, Custom Bot Engineering, AI Agent Design, Skill File Creation, ChatGPT \& Custom GPTs, Claude \& Claude Code, Gemini \& Gemini Gems, MS Copilot \& Copilot Studio, GitHub Copilot, Google Anti-Gravity, Synthesia, Whisper, Enterprise AI Strategy, AI Enablement \& Training, Use Case Mapping \& Prioritization} \\
 \textbf{Languages} & \normalsize{English (native), French (bilingual), Spanish (intermediate), Tamil (conversational)}\\
 \textbf{Interests} & \normalsize{Self-Published Author, Songwriting, A Cappella, Musical Theatre, Volunteering (500+ hrs, 8 countries)}
 \end{tabularx}
